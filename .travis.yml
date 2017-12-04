@@ -3,7 +3,7 @@ node_js: node
 deploy:
   provider: heroku
   api_key:
-    secure: <YOUR ENCRYPTED KEY HERE>
-  app: <YOUR APP NAME HERE>
+    secure: 2lW4OgUQeXsiomnNVJm0y+esA8YqnPl9FNQNMc3IrznDetoybbqmnkgxdaXKLD1Ilog6RT4L2+Yfy3G6wLQlblLY97Nz8+wBuLyyi+ZsKjU2tx9uqoBszNqjWgVNgynkV9B9vqduyiOwl3pz0/zpMcwCu0XllOW6jD1TrQ5GGh2AGL5CtUkkWzC/S2rArvf6jPP2KoROyeZ5QjX6G+XTkKDeN4HX2DaBbhjLLZ8XngFVeGC5md5FUJ8tWap3dbHKdFHlZyXlA82dO/qocp7KIREnJQDvRzPNpWNVxMSV7MgbRHW4N48lrukCPE/lco//d7B/yzz6nTjFxGFQjsby6X1rQWZTvlQj6wgUMTJc6dnFS++/AnGsIVcENIQ7enzuc4sJgYg0H6nGKeKf8m7ZsprlXsVTRtmmCWKiuX6IUkryMOGTXtApecG1DXzPStZVkYy3eCFHa4GJh2OqXOLiEMw1Yqw1RycxFDAUbzB/Ja9gfeHMpHRJZzPjqtqzxSbJYNuSiUUM8N/qDATHx3sLx3tIvT4C5XFNHe6tOsN8Hxhilb6GYGm+F/lXrdpjHPxoCYgFd8f07eIsD2i7sXxSZKLL0HYye0fenftX+9aF0+zI2P9ieJOa81NqTBhmihBIYSMzNXC3xy64ae0kYM+Fc5wDSVWvc4J2vCnRG5No0Sc=
+  app: wizardly-5e
   on:
-    repo: <YOUR REPO INFO HERE>
+    repo: thinkful-cohort-16/Robert-Wade-Node-Capstone
