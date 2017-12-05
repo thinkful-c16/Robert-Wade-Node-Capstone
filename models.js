@@ -29,10 +29,10 @@ const WizardSchema=new mongoose.Schema({
   intelligenceModifier: Number,
   level: Number,
   maxPrepared: Number,
-  spellBook: {
+  spellBook: [{
     spell_id: String,
     prepared: Boolean
-  }
+  }]
 });
 
 const Spell=mongoose.model('Spell', SpellSchema);

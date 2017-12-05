@@ -165,6 +165,13 @@ const handleViewEdit = function (event) {
   store.view = 'edit';
   renderPage(store);
 };
+const handleViewHome = function (event) {
+  event.preventDefault();
+  const store = event.data;
+  
+
+
+};
 
 //on document ready bind events
 jQuery(function ($) {
