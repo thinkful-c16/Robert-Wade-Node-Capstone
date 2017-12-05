@@ -15,7 +15,7 @@ const renderPage = function (store) {
 
 const renderResults = function (store) {
   const listItems = store.list.map((item) => {
-    return `<li id="${item.id}">
+    return `<li id="${item._id}">
                 <a href="${item.url}" class="detail">${item.name}</a>
               </li>`;
   });
@@ -113,9 +113,7 @@ const handleDetails = function (event) {
   const store = event.data;
   const el = $(event.target);
 
-  // const id = el.closest('li').attr('id');
-
-  const id = 35;
+  const id = el.closest('li').attr('id');
 
   api.details(id)
     .then(response => {
