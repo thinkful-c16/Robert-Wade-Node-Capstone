@@ -35,3 +35,7 @@ const WizardSchema=new mongoose.Schema({
   }
 });
 
+const Spell=mongoose.model('Spell', SpellSchema);
+const Wizard=mongoose.model('Wizard', WizardSchema);
+
+module.exports={Spell, Wizard};

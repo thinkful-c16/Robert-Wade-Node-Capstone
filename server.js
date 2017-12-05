@@ -8,20 +8,34 @@ mongoose.Promise = global.Promise;
 
 const {PORT, DATABASE_URL} = require('./config');
 
-const data = require('./spells-seed-data');
+// const data = require('./spells-seed-data');
 
-console.log(data);
+const {Spell, Wizard}=require('./models');
+
+// console.log(data);
 
 const app = express();
 
 app.use(express.static('public'));
 
-app.get('/api/v1/spells', (req, res) => {
-  res.status(200).json(data);
-});
+// app.get('/api/v1/spells', (req, res) => {
+//   res.status(200).json(data);
+// });
 
-app.get('/api/v1/spells/:id', (req, res) => {
-  res.json(data[req.params.id]);
+// app.get('/api/v1/spells/:id', (req, res) => {
+//   res.json(data[req.params.id]);
+// });
+
+app.get('/api/v1/spells', (req, res) => {
+  Spell
+    .find()
+    .then(spells=>{
+      res.json(spells);
+    })
+    .catch(err=>{
+      console.error(err);
+      res.status(500).json({error: 'Something went wrong.'});
+    });
 });
 
 let server;
