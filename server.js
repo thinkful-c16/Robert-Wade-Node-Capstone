@@ -2,6 +2,12 @@
 
 const express = require('express');
 
+const mongoose = require('mongoose');
+
+mongoose.Promise = global.Promise;
+
+const {PORT, DATABASE_URL} = require('./config');
+
 const data = require('./spells-seed-data');
 
 console.log(data);
@@ -18,10 +24,46 @@ app.get('/api/v1/spells/:id', (req, res) => {
   res.json(data[req.params.id]);
 });
 
-if (require.main === module) {
-  app.listen(process.env.PORT || 8080, function () {
-    console.info(`App listening on ${this.address().port}`);
+let server;
+
+function runServer(databaseUrl = DATABASE_URL, port = PORT) {
+  
+  return new Promise((resolve, reject) => {
+    mongoose.connect(databaseUrl, {useMongoClient: true}, err => {
+      if (err) {
+        return reject(err);
+      }
+      server = app.listen(port, () => {
+        console.log(`Your app is listening on port ${port}`);
+        resolve();
+      })
+        .on('error', err => {
+          mongoose.disconnect();
+          reject(err);
+        });
+    });
   });
+}
+
+function closeServer() {
+  return mongoose.disconnect().then(() => {
+    return new Promise ((resolve, reject) => {
+      console.log('Closing server');
+      server.close(err => {
+        if (err) {
+          return reject(err);
+        }
+        resolve();
+      });
+    });
+  });
+}
+
+if (require.main === module) {
+  runServer().catch(err => console.error(err));
+  // app.listen(process.env.PORT || 8080, function () {
+  //   console.info(`App listening on ${this.address().port}`);
+  // });
 }
 
 module.exports = app;
