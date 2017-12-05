@@ -8,10 +8,10 @@ chai.should();
 
 chai.use(chaiHttp);
 
-describe('index page', function () {
+describe('spells list', function () {
   it('should exist', function () {
     return chai.request(app)
-      .get('/')
+      .get('/api/v1/spells')
       .then(function (res) {
         res.should.have.status(200);
       });

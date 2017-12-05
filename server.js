@@ -30,7 +30,7 @@ app.get('/api/v1/spells', (req, res) => {
   Spell
     .find()
     .then(spells=>{
-      res.json(spells);
+      res.status(200).json(spells);
     })
     .catch(err=>{
       console.error(err);
