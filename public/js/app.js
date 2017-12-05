@@ -171,10 +171,11 @@ jQuery(function ($) {
 
   const STORE = {
     demo: false,        // display in demo mode true | false
-    view: 'list',       // current view: list | details | create | edit 
+    view: 'list',       // current view: splash page | spell list | spell details | wizards | wizard details | spell book
     query: {},          // search query values
     list: null,         // search result - array of objects (documents)
     item: null,         // currently selected document
+    wizard: {}
   };
 
   $('#create').on('submit', STORE, handleCreate);
@@ -186,7 +187,8 @@ jQuery(function ($) {
   $('#detail').on('click', '.edit', STORE, handleViewEdit);
 
   $(document).on('click', '.viewCreate', STORE, handleViewCreate);
-  $(document).on('click', '.viewList', STORE, handleViewList);
+  $(document).on('click', '.viewSpellSearch', STORE, handleViewList);
+  $(document).on('click', '.viewHome', STORE, handleViewHome);
 
   // start app by triggering a search
   $('#search').trigger('submit');

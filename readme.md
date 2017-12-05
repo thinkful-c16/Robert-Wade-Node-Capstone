@@ -89,6 +89,8 @@ As a user, I should be able to view only my prepared spells if I choose. ***MVP*
 
 MAIN PAGE
 
+Wireframe: https://wireframe.cc/566coR
+
 - User selects Spell Compendium button => takes user to list of all Wizard Spells
 
 - User selects See my Spell Book button => takes user to their spell book
@@ -96,6 +98,8 @@ MAIN PAGE
 - User selects See my Wizard => takes user to their Wizard page
 
 SPELL SEARCH SCREEN
+
+Wireframe:
 
 - User clicks on spell name => popup with spell details
 
@@ -105,11 +109,15 @@ SPELL SEARCH SCREEN
 
 CHARACTER SCREEN
 
+Wireframe:
+
 - User selects edit => user given ability to change name, level, and INT modifier.
 
 - User selects See My Spell Book => User taken to the spell book view
 
 SPELL BOOK SCREEN
+
+Wireframe:
 
 - User selects prepare spell button on a given spell => user sees that spell is prepared (check-box)
 
