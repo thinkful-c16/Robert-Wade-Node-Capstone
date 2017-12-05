@@ -175,7 +175,7 @@ jQuery(function ($) {
     query: {},          // search query values
     list: null,         // search result - array of objects (documents)
     item: null,         // currently selected document
-    wizard: {}
+    activeWizard: {}
   };
 
   $('#create').on('submit', STORE, handleCreate);
