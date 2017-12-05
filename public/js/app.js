@@ -33,8 +33,13 @@ const renderDetail = function (store) {
   const el = $('#detail');
   const item = store.item;
   el.find('.name').text(item.name);
-  el.find('.description').text(item.description
-  );
+  el.find('.description').text(item.description);
+  el.find('.higher-levels').text(item.higher_levels);
+  el.find('.casting-time').text(item.casting_time);
+  el.find('.duration').text(item.duration);
+  el.find('.range').text(item.range);
+  el.find('.components').text(item.components.raw);
+  el.find('.type').text(item.type);
 };
 
 const handleSearch = function (event) {
