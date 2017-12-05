@@ -26,11 +26,25 @@ app.use(express.static('public'));
 //   res.json(data[req.params.id]);
 // });
 
+// endpoints for spells
+
 app.get('/api/v1/spells', (req, res) => {
   Spell
     .find()
     .then(spells=>{
       res.status(200).json(spells);
+    })
+    .catch(err=>{
+      console.error(err);
+      res.status(500).json({error: 'Something went wrong.'});
+    });
+});
+
+app.get('/api/v1/spells/:id', (req, res) => {
+  Spell
+    .findById(req.params.id)
+    .then(spell => {
+      res.status(200).json(spell);
     })
     .catch(err=>{
       console.error(err);
