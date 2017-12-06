@@ -87,7 +87,7 @@ As a user, I should be able to view only my prepared spells if I choose. ***MVP*
 ** USER JOURNEYS **
 *******************
 
-Wireframes: https://wireframe.cc/pro/edit/129921
+Wireframes: https://wireframe.cc/pro/pp/6db95858e129921
 
 MAIN PAGE
 
