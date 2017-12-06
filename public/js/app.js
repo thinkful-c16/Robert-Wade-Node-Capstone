@@ -141,10 +141,10 @@ const handleRemove = function (event) {
       console.error(err);
     });
 };
-const handleViewCreate = function (event) {
+const handleViewWizards = function (event) {
   event.preventDefault();
   const store = event.data;
-  store.view = 'create';
+  store.view = 'wizards';
   renderPage(store);
 };
 const handleViewList = function (event) {
@@ -168,15 +168,15 @@ const handleViewEdit = function (event) {
 const handleViewHome = function (event) {
   event.preventDefault();
   const store = event.data;
-
-
+  store.view='home';
+  renderPage(store);
 };
 
 //on document ready bind events
 jQuery(function ($) {
 
   const STORE = {
-    demo: false,        // display in demo mode true | false
+    demo: true,        // display in demo mode true | false
     view: 'list',       // current view: splash page | spell list | spell details | wizards | wizard details | spell book
     query: {},          // search query values
     list: null,         // search result - array of objects (documents)
@@ -192,12 +192,12 @@ jQuery(function ($) {
   $('#detail').on('click', '.remove', STORE, handleRemove);
   $('#detail').on('click', '.edit', STORE, handleViewEdit);
 
-  $(document).on('click', '.viewCreate', STORE, handleViewCreate);
+  $(document).on('click', '.viewWizards', STORE, handleViewWizards);
   $(document).on('click', '.viewSpellSearch', STORE, handleViewList);
   $(document).on('click', '.viewHome', STORE, handleViewHome);
 
   // start app by triggering a search
   $('#search').trigger('submit');
-  // $('.viewHome').trigger('click');
+  $('.viewHome').trigger('click');
 
 });
