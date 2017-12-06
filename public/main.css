@@ -25,7 +25,44 @@ button {
   display: inline
 }
 
-#search,
+#home{
+  height: 320px;
+  border: 3px solid red;
+}
+
+#wizards{
+  height: 320px;
+  border: 3px solid green;
+}
+
+#search{
+  height: 320px;
+  border: 3px solid blue;
+}
+
+#result{
+  position: absolute;
+  background-color: lightyellow;
+  width: 500px;
+  max-height: 312px;
+  overflow: auto;
+}
+
+#compendiumDetail{
+  height: 320px;
+  border: 3px solid purple;
+}
+
+#create{
+  height: 320px;
+  border: 3px solid yellow;
+}
+
+#edit{
+  height: 320px;
+  border: 3px solid orange;
+}
+
 #detail,
 #create,
 #edit {

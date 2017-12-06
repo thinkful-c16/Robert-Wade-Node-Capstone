@@ -16,7 +16,7 @@ const renderPage = function (store) {
 const renderResults = function (store) {
   const listItems = store.list.map((item) => {
     return `<li id="${item._id}">
-                <a href="${item.url}" class="detail">${item.name}</a>
+                <a href="${item.url}" class="compendiumDetail">${item.name}</a>
               </li>`;
   });
   $('#result').empty().append('<ul>').find('ul').append(listItems);
@@ -30,7 +30,7 @@ const renderEdit = function (store) {
 }; 
 
 const renderDetail = function (store) {
-  const el = $('#detail');
+  const el = $('#compendiumDetail');
   const item = store.item;
   el.find('.name').text(item.name);
   el.find('.description').text(item.description);
@@ -79,7 +79,7 @@ const handleCreate = function (event) {
       store.item = response;
       store.list = null; //invalidate cached list results
       renderDetail(store);
-      store.view = 'detail';
+      store.view = 'compendiumDetail';
       renderPage(store);
     }).catch(err => {
       console.error(err);
@@ -101,7 +101,7 @@ const handleUpdate = function (event) {
       store.item = response;
       store.list = null; //invalidate cached list results
       renderDetail(store);
-      store.view = 'detail';
+      store.view = 'compendiumDetail';
       renderPage(store);
     }).catch(err => {
       console.error(err);
@@ -120,7 +120,7 @@ const handleDetails = function (event) {
       store.item = response;
       renderDetail(store);
 
-      store.view = 'detail';
+      store.view = 'compendiumDetail';
       renderPage(store);
 
     }).catch(err => {
