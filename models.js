@@ -24,10 +24,10 @@ const SpellSchema=new mongoose.Schema({
 });
 
 const WizardSchema=new mongoose.Schema({
-  name: String,
-  intelligence: {type: Number, max: 30},
+  name: {type: String, required: true},
+  intelligence: {type: Number, max: 30, required: true},
   intelligenceModifier: Number,
-  level: Number,
+  level: {type: Number, required: true},
   maxPrepared: Number,
   spellBook: [{
     spell_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Spell' },
