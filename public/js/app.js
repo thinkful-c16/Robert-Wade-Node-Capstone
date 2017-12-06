@@ -22,6 +22,15 @@ const renderResults = function (store) {
   $('#result').empty().append('<ul>').find('ul').append(listItems);
 };
 
+const renderCompendiumResults = function (store) {
+  const listItems = store.compendiumList.map((item) => {
+    return `<li id="${item._id}">
+                <a href="${item.url}" class="compendiumDetail">${item.name}</a>
+              </li>`;
+  });
+  $('#result').empty().append('<ul>').find('ul').append(listItems);
+};
+
 const renderEdit = function (store) {
   const el = $('#edit');
   const item = store.item;
@@ -42,23 +51,46 @@ const renderDetail = function (store) {
   el.find('.type').text(item.type);
 };
 
-const handleSearch = function (event) {
+// const handleSearch = function (event) {
+//   event.preventDefault();
+//   const store = event.data;
+//   const el = $(event.target);
+//   const title = el.find('[name=title]').val();
+//   var query;
+//   if (title) {
+//     query = {
+//       title: el.find('[name=title]').val()
+//     };
+//   }
+//   api.search(query)
+//     .then(response => {
+//       store.list = response;
+//       renderResults(store);
+
+//       store.view = 'search';
+//       renderPage(store);
+//     }).catch(err => {
+//       console.error(err);
+//     });
+// };
+
+const handleCompendium = function (event) {
   event.preventDefault();
   const store = event.data;
   const el = $(event.target);
-  const title = el.find('[name=title]').val();
+  const spellName = el.find('[name=spellName]').val();
   var query;
-  if (title) {
+  if (spellName) {
     query = {
-      title: el.find('[name=title]').val()
+      title: el.find('[name=spellName]').val()
     };
   }
   api.search(query)
     .then(response => {
-      store.list = response;
-      renderResults(store);
+      store.compendiumList = response;
+      renderCompendiumResults(store);
 
-      store.view = 'search';
+      store.view = 'compendiumOfSpells';
       renderPage(store);
     }).catch(err => {
       console.error(err);
@@ -141,22 +173,36 @@ const handleRemove = function (event) {
       console.error(err);
     });
 };
+
 const handleViewWizards = function (event) {
   event.preventDefault();
   const store = event.data;
   store.view = 'wizards';
   renderPage(store);
 };
-const handleViewList = function (event) {
+
+// const handleViewList = function (event) {
+//   event.preventDefault();
+//   const store = event.data;
+//   if (!store.list) {
+//     handleSearch(event);
+//     return;
+//   }
+//   store.view = 'search';
+//   renderPage(store);
+// };
+
+const handleViewCompendium = function (event) {
   event.preventDefault();
   const store = event.data;
-  if (!store.list) {
-    handleSearch(event);
+  if (!store.compendiumList) {
+    handleCompendium(event);
     return;
   }
-  store.view = 'search';
+  store.view = 'compendiumOfSpells';
   renderPage(store);
 };
+
 const handleViewEdit = function (event) {
   event.preventDefault();
   const store = event.data;
@@ -165,6 +211,7 @@ const handleViewEdit = function (event) {
   store.view = 'edit';
   renderPage(store);
 };
+
 const handleViewHome = function (event) {
   event.preventDefault();
   const store = event.data;
@@ -179,13 +226,15 @@ jQuery(function ($) {
     demo: true,        // display in demo mode true | false
     view: 'list',       // current view: splash page | spell list | spell details | wizards | wizard details | spell book
     query: {},          // search query values
-    list: null,         // search result - array of objects (documents)
+    wizardsList: null,
+    compendiumList: null,         // search result - array of objects (documents)
+    spellBookList: null,
     item: null,         // currently selected document
     activeWizard: {}
   };
 
   $('#create').on('submit', STORE, handleCreate);
-  $('#compendiumOfSpells').on('submit', STORE, handleSearch);
+  $('#compendiumOfSpells').on('submit', STORE, handleCompendium);
   $('#edit').on('submit', STORE, handleUpdate);
 
   $('#result').on('click', '.compendiumDetail', STORE, handleDetails);
@@ -193,7 +242,7 @@ jQuery(function ($) {
   $('#detail').on('click', '.edit', STORE, handleViewEdit);
 
   $(document).on('click', '.viewWizards', STORE, handleViewWizards);
-  $(document).on('click', '.viewSpellSearch', STORE, handleViewList);
+  $(document).on('click', '.viewSpellSearch', STORE, handleViewCompendium);
   $(document).on('click', '.viewHome', STORE, handleViewHome);
 
   // start app by viewing the home page
