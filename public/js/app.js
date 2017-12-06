@@ -185,7 +185,7 @@ jQuery(function ($) {
   };
 
   $('#create').on('submit', STORE, handleCreate);
-  $('#search').on('submit', STORE, handleSearch);
+  $('#compendiumOfSpells').on('submit', STORE, handleSearch);
   $('#edit').on('submit', STORE, handleUpdate);
 
   $('#result').on('click', '.compendiumDetail', STORE, handleDetails);
