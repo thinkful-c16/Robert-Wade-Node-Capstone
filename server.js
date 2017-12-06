@@ -130,15 +130,15 @@ app.put('/api/v1/wizards/:id', (req, res) => {
       { name: req.body.name,
         level: req.body.level,
         intelligence: req.body.intelligence,
-        intelligenceModifier: Math.floor((req.body.intelligence - 10) / 2 ),
-        maxPrepared: this.intelligenceModifier + req.body.level},
+        intelligenceModifier: intMod,
+        maxPrepared: maxPrep},
       {new: true})
     .then(updatedPost => res.status(204).end())
     .catch(err => res.status(500).json({message: 'Something went wrong'}));
 });
 
 // delete endpoint for wizards
-app.delete('/wizards/:id', (req, res) => {
+app.delete('/api/v1/wizards/:id', (req, res) => {
   Wizard
     .findByIdAndRemove(req.params.id)
     .then(() => {
