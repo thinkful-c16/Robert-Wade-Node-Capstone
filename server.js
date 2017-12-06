@@ -163,20 +163,27 @@ app.get('/api/v1/wizards/:id/spellbook', (req, res) => {
     });
 });
 
-// create or push endpoint for spellbook
+// add to the spellbook for a specific wizard
+
 // app.post('/api/v1/wizards/:id/spellbook', (req, res) => {
-//   Wizard
-//     .findById(req.params.id)
-//     .then(wizard => {
-//       res.status(200).json(wizard.spellBook);
-//     })
-//     .catch(err => {
-//       console.error(err);
-//       res.status(500).json({error: 'Something went wrong'});
-//     });
+
+//   Spell
+//     .findById(req.body.)
+
+//     Wizard
+//       .findByIdAndUpdate(req.params.id,
+//         { $push: {
+//           spellBook: {
+//             spell_id: ,
+//             prepared: false
+//           }
+//         }
+//         });
 // });
 
+// remove spell from spellbook for a specific wizard
 
+//update spell in a spellbook (prepared:true/false)
 
 let server;
 
