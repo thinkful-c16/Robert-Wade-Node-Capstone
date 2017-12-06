@@ -199,5 +199,6 @@ jQuery(function ($) {
 
   // start app by triggering a search
   $('#search').trigger('submit');
+  // $('.viewHome').trigger('click');
 
 });
