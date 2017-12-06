@@ -25,14 +25,9 @@
 		<p>Search and review every spell in D&D 5e. Easily peruse complete information on every spell.
 		<br/>
 		<p>Manage your spell slots. Add or delete spells from your spell book, and keep track of which spells are prepared.
-	</section>
-
-	<form id="wizards" class="view">
-		<div id="allWizards"></div>
-		<a href="" class="viewCreateWizard">Create a Wizard</a>
 		<br/>
-		<hr/>
-	</form>
+		<p>[put at bottom with CSS later] <a href="http://dnd.wizards.com" target="_blank">[D&D Logo]</a>
+	</section>
 
 	<form id="search" class="view">
 		<div id="result"></div>
@@ -40,46 +35,54 @@
 	</form>
 
 	<section id="compendiumDetail" class="view">
-		<fieldset>
-			<legend>Compendium Detail</legend>
-			<div>
-				<label for="name">Name:</label>
-				<span class="name"></span>
-			</div>
-			<div>
-				<label for="description">Description:</label>
-				<span class="description"></span>
-			</div>
-			<div>
-				<label for="higher-levels">At higher levels:</label>
-				<span class="higher-levels"></span>
-			</div>
-			<div>
-				<label for="casting-time">Casting time:</label>
-				<span class="casting-time"></span>
-			</div>
-			<div>
-				<label for="duration">Duration:</label>
-				<span class="duration"></span>
-			</div>
-			<div>
-				<label for="range">Range:</label>
-				<span class="range"></span>
-			</div>
-			<div>
-				<label for="components">Components:</label>
-				<span class="components"></span>
-			</div>
-			<div>
-				<label for="type">Type:</label>
-				<span class="type"></span>
-			</div>	
-			<a href="" class="spellbook-add">Add to my spell book</a>
-		</fieldset>
+		<div id="spellDetails">
+			<fieldset>
+				<legend>Compendium Detail</legend>
+				<div>
+					<label for="name">Name:</label>
+					<span class="name"></span>
+				</div>
+				<div>
+					<label for="description">Description:</label>
+					<span class="description"></span>
+				</div>
+				<div>
+					<label for="higher-levels">At higher levels:</label>
+					<span class="higher-levels"></span>
+				</div>
+				<div>
+					<label for="casting-time">Casting time:</label>
+					<span class="casting-time"></span>
+				</div>
+				<div>
+					<label for="duration">Duration:</label>
+					<span class="duration"></span>
+				</div>
+				<div>
+					<label for="range">Range:</label>
+					<span class="range"></span>
+				</div>
+				<div>
+					<label for="components">Components:</label>
+					<span class="components"></span>
+				</div>
+				<div>
+					<label for="type">Type:</label>
+					<span class="type"></span>
+				</div>
+				<br/>
+				<a href="" class="spellbook-add">Add to my spell book</a>
+			</fieldset>
+		</div>
 		<a href="" class="viewList">&lt; Back to compendium </a>
 		<br/>
 		<br/>
 	</section>
+
+	<form id="wizards" class="view">
+		<div id="allWizards"></div>
+		<a href="" class="viewCreateWizard">Create a Wizard</a>
+	</form>
 
 	<form id="create" class="view">
 		<fieldset>

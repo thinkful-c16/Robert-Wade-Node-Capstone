@@ -53,6 +53,14 @@ button {
   border: 3px solid purple;
 }
 
+#spellDetails{
+  position: absolute;
+  background-color: lightblue;
+  width: 500px;
+  max-height: 312px;
+  overflow: auto;
+}
+
 #create{
   height: 320px;
   border: 3px solid yellow;

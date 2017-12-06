@@ -188,7 +188,7 @@ jQuery(function ($) {
   $('#search').on('submit', STORE, handleSearch);
   $('#edit').on('submit', STORE, handleUpdate);
 
-  $('#result').on('click', '.detail', STORE, handleDetails);
+  $('#result').on('click', '.compendiumDetail', STORE, handleDetails);
   $('#detail').on('click', '.remove', STORE, handleRemove);
   $('#detail').on('click', '.edit', STORE, handleViewEdit);
 
@@ -196,8 +196,7 @@ jQuery(function ($) {
   $(document).on('click', '.viewSpellSearch', STORE, handleViewList);
   $(document).on('click', '.viewHome', STORE, handleViewHome);
 
-  // start app by triggering a search
-  $('#search').trigger('submit');
+  // start app by viewing the home page
+  // $('#search').trigger('submit');
   $('.viewHome').trigger('click');
-
 });
