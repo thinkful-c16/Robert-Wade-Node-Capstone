@@ -168,7 +168,6 @@ const handleViewEdit = function (event) {
 const handleViewHome = function (event) {
   event.preventDefault();
   const store = event.data;
-  
 
 
 };
