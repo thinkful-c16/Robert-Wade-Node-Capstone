@@ -73,18 +73,65 @@ describe('testing all wizard data', function(){
     });
   });
 
-  // describe('POST endpoint for wizard list', function () {
-  //   it('should add a wizard on POST', function () {
-  //     const newWizard={name: 'Testopheles', level: 14, intelligence: 17, intelligenceModifier: 3, maxPrepared: 17}
-  //   });
-  // });
+  describe('POST endpoint for wizard list', function () {
+    it('should add a wizard on POST', function () {
+      const newWizard={
+        name: 'Testopheles',
+        level: 14,
+        intelligence: 17,
+        intelligenceModifier: 3,
+        maxPrepared: 17
+      };
+      return chai.request(app)
+        .post('/api/v1/wizards')
+        .send(newWizard)
+        .then(function(res){
+          res.should.have.status(201);
+          res.should.be.json;
+          res.body.should.be.a('object');
+          res.body.should.include.keys('_id', 'name');
+          res.body.should.not.be.null;
+          res.body.name.should.equal(newWizard.name);
+          res.body.level.should.equal(newWizard.level);
+          res.body.intelligence.should.equal(newWizard.intelligence);
+          res.body.intelligenceModifier.should.equal(newWizard.intelligenceModifier);
+          res.body.maxPrepared.should.equal(newWizard.maxPrepared);
+        });
+    });
+  });
 
-  // describe('PUT endpoint for wizard list', function () {
-  //   //
-  // });
+  describe('PUT endpoint for wizard list', function () {
+    it('should update a wizard on PUT', function(){
+      const updateWizard={
+        name: 'Shazam',
+        level: 6,
+        intelligence: 18
+      };
+      return chai.request(app)
+        .get('/api/v1/wizards')
+        .then(function(res){
+          updateWizard.id=res.body[0]._id;
+          return chai.request(app)
+            .put(`/api/v1/wizards/${updateWizard._id}`)
+            .send(updateWizard);
+        })
+        .then(function(res){
+          res.should.have.status(204);
+        });
+    });
+  });
 
-  // describe('DELETE endpoint for wizard list', function () {
-  //   //
-  // });
-
+  describe('DELETE endpoint for wizard list', function () {
+    it('should delete a wizard on DELETE', function(){
+      return chai.request(app)
+        .get('/api/v1/wizards')
+        .then(function(res){
+          return chai.request(app)
+            .delete(`/api/v1/wizards/${res.body[0]._id}`);
+        })
+        .then(function(res){
+          res.should.have.status(204);
+        });
+    });
+  });
 });
