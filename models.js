@@ -30,8 +30,8 @@ const WizardSchema=new mongoose.Schema({
   level: {type: Number, required: true},
   maxPrepared: Number,
   spellBook: [{
-    name: String,
     spell_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Spell' },
+    name: String,
     prepared: { type: Boolean, default: false }
   }]
 });
