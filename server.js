@@ -22,13 +22,7 @@ app.use(express.static('public'));
 
 app.use(bodyParser.json());
 
-// app.get('/api/v1/spells', (req, res) => {
-//   res.status(200).json(data);
-// });
-
-// app.get('/api/v1/spells/:id', (req, res) => {
-//   res.json(data[req.params.id]);
-// });
+const jsonParser = bodyParser.json();
 
 // endpoints for spells
 
@@ -165,25 +159,62 @@ app.get('/api/v1/wizards/:id/spellbook', (req, res) => {
 
 // add to the spellbook for a specific wizard
 
-// app.post('/api/v1/wizards/:id/spellbook', (req, res) => {
-
-//   Spell
-//     .findById(req.body.)
-
-//     Wizard
-//       .findByIdAndUpdate(req.params.id,
-//         { $push: {
-//           spellBook: {
-//             spell_id: ,
-//             prepared: false
-//           }
-//         }
-//         });
-// });
+app.post('/api/v1/wizards/:id/spellbook', jsonParser, (req, res) => {
+  Wizard
+    .findByIdAndUpdate(req.params.id,
+      { '$push': {
+        'spellBook': {spell_id: req.body._id, prepared: false}
+      } },
+      {new: true}
+    ).then(results => {
+      res.status(201).json(results);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({error: 'Something went wrong.'});
+    });
+});
 
 // remove spell from spellbook for a specific wizard
 
+app.delete('/api/v1/wizards/:id/spellbook', (req, res) => {
+  Wizard
+    .findByIdAndUpdate(req.params.id,
+      { '$pull': {
+        'spellBook': { 'spell_id': req.body.spell_id } } },
+      {new: true}
+    ).then(results => {
+      res.status(201).json(results);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({error: 'Something went wrong.'});
+    });
+});
+
 //update spell in a spellbook (prepared:true/false)
+
+app.put('/api/v1/wizards/:id/spellbook', (req, res) => {
+  Wizard
+    .findOne({'spellBook.spell_id': req.body.spell_id})
+    .then(wizard => {
+      // console.log(wizard);
+      return wizard.spellBook.filter(spells => spells.spell_id == req.body.spell_id);
+    }).then(spellArray => {
+      console.log(spellArray);
+      return Wizard
+        .update({_id: req.params.id, 'spellBook.spell_id': req.body.spell_id},
+          { $set: {'spellBook.$.prepared': !spellArray[0].prepared} },
+          {new: true}
+        );
+    }).then(results => {
+      res.status(201).json(results);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({error: 'Something went wrong.'});
+    });
+});
 
 let server;
 
