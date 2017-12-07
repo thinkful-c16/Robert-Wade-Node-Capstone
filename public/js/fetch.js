@@ -127,7 +127,20 @@ var api = {
       }
     }).then(normalizeResponseErrors)
       .then(res => res.text());
-  }
+  },
+
+  spellBook: function (id) {
+    const url = buildUrl(`${WIZARDS_URL}${id}/spellbook`);
+
+    return fetch(url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(normalizeResponseErrors)
+      .then(res => res.json());
+  },
+
 };
 
 

@@ -34,8 +34,10 @@ const renderCompendiumResults = function (store) {
 
 const renderWizardsResults = function (store) {
   const listItems = store.wizardsList.map((item) => {
+    console.log(item.url);
     return `<li id="${item._id}">
                 <a href="${item.url}" class="wizardsDetail">${item.name}, level ${item.level} wizard</a>
+                <a href="${item.url}" class="this-spell-book">View spell book</a>
               </li>`;
   });
   $('#allWizards').empty().append('<ul>').find('ul').append(listItems);
@@ -78,6 +80,15 @@ const renderWizardDetail = function (store) {
   el.find('.intelligence-modifier').text(item.intelligenceModifier);
   el.find('.max-prepared').text(item.maxPrepared);
   el.find('.spell-book').text(item.spellBook);
+};
+
+const renderSpellBookResults = function (store) {
+  const listItems = store.spellBookList.map((item) => {
+    return `<li id="${item._id}">
+                <a href="${item.url}" class="spellBookDetail">${item.name}</a>
+              </li>`;
+  });
+  $('#spell-book-result').empty().append('<ul>').find('ul').append(listItems);
 };
 
 // const handleSearch = function (event) {
@@ -277,6 +288,26 @@ const handleWizardDetails = function (event) {
     });
 };
 
+const handleSpellBook = function (event) {
+  event.preventDefault();
+  const store = event.data;
+  const el = $(event.target);
+
+  const id = el.closest('li').attr('id');
+
+  api.spellBook(id)
+    .then(response => {
+      store.spellBookList = response;
+      renderSpellBookResults(store);
+
+      store.view = 'spell-book-section';
+      renderPage(store);
+
+    }).catch(err => {
+      store.error = err;
+    });
+};
+
 // const handleRemove = function (event) {
 //   event.preventDefault();
 //   const store = event.data;
@@ -401,6 +432,9 @@ jQuery(function ($) {
   $('#wizardDetail').on('click', '.view-edit-wizard', STORE, handleViewEditWizard);
   $('#edit-wizard').on('submit', STORE, handleWizardUpdate);
   $('#wizardDetail').on('click', '.delete-wizard', STORE, handleWizardRemove);
+
+  // spell book related listeners
+  $('#allWizards').on('click', '.this-spell-book', STORE, handleSpellBook);
 
   // nav bar listeners
   $(document).on('click', '.viewWizards', STORE, handleViewWizards);
