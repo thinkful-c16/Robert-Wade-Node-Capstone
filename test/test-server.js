@@ -63,6 +63,18 @@ describe('GET endpoint for master spell list', function () {
 
 describe('GET endpoint for wizard list', function () {
   it('should return all wizards and give correct status', function() {
+    let response;
+    return chai.request(app)
+      .get('/api/v1/wizards')
+      .then(function(res) {
+        response = res;
+        res.should.have.status(200);
+        res.body.should.have.lengthOf.at.least(1);
+        return Wizard.count();
+      });
+  });
+
+  it('should return spells in expected format with expected fields', function() {
     let resWizard;
     return chai
       .request(app)
