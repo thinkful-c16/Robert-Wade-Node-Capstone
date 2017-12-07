@@ -91,6 +91,19 @@ button {
   border: 3px solid darkorange;
 }
 
+#spell-book-section{
+  height: 320px;
+  border: 3px solid fuchsia;
+}
+
+#spell-book{
+  position: absolute;
+  background-color: mistyrose;
+  width: 500px;
+  max-height: 312px;
+  overflow: auto;
+}
+
 #detail,
 #create,
 #edit {
