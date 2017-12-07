@@ -32,12 +32,13 @@
 		<p>[put at bottom with CSS later] <a href="http://dnd.wizards.com" target="_blank">[D&D Logo]</a>
 	</section>
 
-<!-- 	<section id="compendiumOfSpellBox" class= "view"> -->
-		<form id="compendiumOfSpells" class="view">
-			<div id="result"></div>
-			<!-- <a href="" class="viewCreate">Create a Story</a> -->
-		</form>
-<!-- 	</section> -->
+	<section id="compendiumOfSpells" class="view">
+		<div id="spellList">
+			<fieldset><legend>Compendium of Spells</legend>
+				<div id="result"></div>
+			</fieldset>
+		</div>
+	</section>
 
 	<section id="compendiumDetail" class="view">
 		<div id="spellDetails">
@@ -68,30 +69,33 @@
 		</div>
 	</section>
 
-	<form id="wizards" class="view">
-		<div id="allWizards"></div>
+	<section id="wizards" class="view">
+		<div id="allWizards">
+			<fieldset><legend>Roster of Wizards</legend>
+				<div id="allWizards"></div>
+			</fieldset>
+		</div>
 		<button type="submit" class="viewCreateWizard">New Wizard</button>
-	</form>
+	</section>
 
 	<section id="wizardDetail" class="view">
 		<div id="wizardDetails">
-			<fieldset>
-				<legend>Wizard Details</legend>
-					<label for="name">Name:</label>
-					<span class="name"></span>
-					<label for="level">Level:</label>
-					<span class="level"></span>
-					<label for="intelligence">Intelligence:</label>
-					<span class="intelligence"></span>
-					<label for="intelligence-modifier">Intelligence Modifier:</label>
-					<span class="intelligence-modifier"></span>
-					<label for="max-prepared">Max prepared spells:</label>
-					<span class="max-prepared"></span>
-					<label for="spell-book">Spell book:</label>
-					<span class="spell-book"></span>
-					<button type="submit" class="view-edit-wizard">Edit</button>
-					<button type="submit" class="delete-wizard">Delete</button>
-					<button type="reset" class="viewWizards">Go Back</button>
+			<fieldset><legend>Wizard Details</legend>
+				<label for="name">Name:</label>
+				<span class="name"></span>
+				<label for="level">Level:</label>
+				<span class="level"></span>
+				<label for="intelligence">Intelligence:</label>
+				<span class="intelligence"></span>
+				<label for="intelligence-modifier">Intelligence Modifier:</label>
+				<span class="intelligence-modifier"></span>
+				<label for="max-prepared">Max prepared spells:</label>
+				<span class="max-prepared"></span>
+				<label for="spell-book">Spell book:</label>
+				<span class="spell-book"></span>
+				<button type="submit" class="view-edit-wizard">Edit</button>
+				<button type="submit" class="delete-wizard">Delete</button>
+				<button type="reset" class="viewWizards">Go Back</button>
 <!-- 				<ul id="nav">
 					<li> </li><a href="" class="view-edit-wizard">Edit this wizard</a>
 					<li> </li><a href="" class="delete-wizard">Delete this wizard</a>

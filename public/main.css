@@ -25,22 +25,17 @@ button {
   display: inline
 }
 
-/*#home{
+#home{
   height: 320px;
   border: 3px solid red;
 }
 
-#wizards{
+#compendiumOfSpells{
   height: 320px;
-  border: 3px solid green;
+  border: 3px solid Blue;
 }
 
-#search{
-  height: 320px;
-  border: 3px solid blue;
-}
-
-#result{
+#spellList{
   position: absolute;
   background-color: lightyellow;
   width: 500px;
@@ -48,7 +43,7 @@ button {
   overflow: auto;
 }
 
-#compendiumOfSpells{
+#compendiumDetail{
   height: 320px;
   border: 3px solid purple;
 }
@@ -61,14 +56,39 @@ button {
   overflow: auto;
 }
 
-#create{
+#wizards{
+  position: relative;
+  height: 320px;
+  border: 3px solid green;
+}
+
+#allWizards{
+  position: absolute;
+  background-color: lightgreen;
+  width: 500px;
+  max-height: 282px;
+  overflow: auto;
+}
+
+.viewCreateWizard{
+  position: absolute;
+  left: 150px;
+  bottom: 0px;
+}
+
+#wizardDetail{
+  height: 320px;
+  border: 3px solid brown;
+}
+
+#createWizard{
   height: 320px;
   border: 3px solid yellow;
-}*/
+}
 
-#edit{
+#edit-wizard{
   height: 320px;
-  border: 3px solid orange;
+  border: 3px solid darkorange;
 }
 
 #detail,
