@@ -22,6 +22,8 @@ app.use(express.static('public'));
 
 app.use(bodyParser.json());
 
+const jsonParser = bodyParser.json();
+
 // app.get('/api/v1/spells', (req, res) => {
 //   res.status(200).json(data);
 // });
@@ -165,25 +167,55 @@ app.get('/api/v1/wizards/:id/spellbook', (req, res) => {
 
 // add to the spellbook for a specific wizard
 
-// app.post('/api/v1/wizards/:id/spellbook', (req, res) => {
-
-//   Spell
-//     .findById(req.body.)
-
-//     Wizard
-//       .findByIdAndUpdate(req.params.id,
-//         { $push: {
-//           spellBook: {
-//             spell_id: ,
-//             prepared: false
-//           }
-//         }
-//         });
-// });
+app.post('/api/v1/wizards/:id/spellbook', jsonParser, (req, res) => {
+  Wizard
+    .findByIdAndUpdate(req.params.id,
+      { '$push': {
+        'spellBook': {name: req.body.name, spell_id: req.body._id, prepared: false}
+      } },
+      {new: true}
+    ).then(results => {
+      res.status(201).json(results);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({error: 'Something went wrong.'});
+    });
+});
 
 // remove spell from spellbook for a specific wizard
 
+app.put('/api/v1/wizards/:id/spellbook/delete', (req, res) => {
+  Wizard
+    .findByIdAndUpdate(req.params.id,
+      { '$pull': {
+        'spellBook': { 'spell_id': req.body.spell_id } } },
+      {new: true}
+    ).then(results => {
+      res.status(201).json(results);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({error: 'Something went wrong.'});
+    });
+});
+
 //update spell in a spellbook (prepared:true/false)
+
+app.put('/api/v1/wizards/:id/spellbook/update', (req, res) => {
+  Wizard
+    .findOneAndUpdate(
+      {_id: req.params.id, 'spellBook.spell_id': req.body._id},
+      { 'spellBook.$.prepared': !'spellBook.prepared'},
+      {new: true}
+    ).then(results => {
+      res.status(201).json(results);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({error: 'Something went wrong.'});
+    });
+});
 
 let server;
 
