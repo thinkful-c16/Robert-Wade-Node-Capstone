@@ -277,15 +277,29 @@ const handleWizardDetails = function (event) {
     });
 };
 
-const handleRemove = function (event) {
+// const handleRemove = function (event) {
+//   event.preventDefault();
+//   const store = event.data;
+//   const id = store.item.id;
+
+//   api.remove(id, store.token)
+//     .then(() => {
+//       store.list = null; //invalidate cached list results
+//       return handleSearch(event);
+//     }).catch(err => {
+//       console.error(err);
+//     });
+// };
+
+const handleWizardRemove = function (event) {
   event.preventDefault();
   const store = event.data;
-  const id = store.item.id;
+  const id = store.item._id;
 
-  api.remove(id, store.token)
+  api.wizardRemove(id, store.token)
     .then(() => {
-      store.list = null; //invalidate cached list results
-      return handleSearch(event);
+      store.wizardsList = null; //invalidate cached list results
+      return handleWizards(event);
     }).catch(err => {
       console.error(err);
     });
@@ -386,6 +400,7 @@ jQuery(function ($) {
   $('#wizards').on('click', '.viewCreateWizard', STORE, handleViewCreateWizard);
   $('#wizardDetail').on('click', '.view-edit-wizard', STORE, handleViewEditWizard);
   $('#edit-wizard').on('submit', STORE, handleWizardUpdate);
+  $('#wizardDetail').on('click', '.delete-wizard', STORE, handleWizardRemove);
 
   // nav bar listeners
   $(document).on('click', '.viewWizards', STORE, handleViewWizards);

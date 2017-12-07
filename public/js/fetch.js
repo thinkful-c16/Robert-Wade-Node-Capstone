@@ -100,7 +100,7 @@ var api = {
     }).then(normalizeResponseErrors)
       .then(res => res.json());
   },
-  
+
   wizardUpdate: function (document) {
     const url = buildUrl(`${WIZARDS_URL}${document.id}`);
     
@@ -117,8 +117,8 @@ var api = {
       .then(res => res.json());
   },
 
-  spellRemove: function (id) {
-    const url = buildUrl(`${COMPENDIUM_URL}${id}`);
+  wizardRemove: function (id) {
+    const url = buildUrl(`${WIZARDS_URL}${id}`);
 
     return fetch(url, {
       method: 'DELETE',
