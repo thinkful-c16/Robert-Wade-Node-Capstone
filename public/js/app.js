@@ -41,12 +41,20 @@ const renderWizardsResults = function (store) {
   $('#allWizards').empty().append('<ul>').find('ul').append(listItems);
 };
 
-const renderEdit = function (store) {
-  const el = $('#edit');
+// const renderEdit = function (store) {
+//   const el = $('#edit');
+//   const item = store.item;
+//   el.find('[name=title]').val(item.title);
+//   el.find('[name=content]').val(item.content);
+// };
+
+const renderWizardEdit = function (store) {
+  const el = $('#edit-wizard');
   const item = store.item;
-  el.find('[name=title]').val(item.title);
-  el.find('[name=content]').val(item.content);
-}; 
+  el.find('[name=name]').val(item.name);
+  el.find('[name=level]').val(item.level);
+  el.find('[name=intelligence]').val(item.intelligence);
+};
 
 const renderDetail = function (store) {
   const el = $('#compendiumDetail');
@@ -184,22 +192,45 @@ const handleCreateWizard = function (event) {
     });
 };
 
-const handleUpdate = function (event) {
+// const handleUpdate = function (event) {
+//   event.preventDefault();
+//   const store = event.data;
+//   const el = $(event.target);
+
+//   const document = {
+//     id: store.item.id,
+//     title: el.find('[name=title]').val(),
+//     content: el.find('[name=content]').val()
+//   };
+//   api.update(document, store.token)
+//     .then(response => {
+//       store.item = response;
+//       store.list = null; //invalidate cached list results
+//       renderDetail(store);
+//       store.view = 'compendiumDetail';
+//       renderPage(store);
+//     }).catch(err => {
+//       console.error(err);
+//     });
+// };
+
+const handleWizardUpdate = function (event) {
   event.preventDefault();
   const store = event.data;
   const el = $(event.target);
 
   const document = {
-    id: store.item.id,
-    title: el.find('[name=title]').val(),
-    content: el.find('[name=content]').val()
+    id: store.item._id,
+    name: el.find('[name=name]').val(),
+    level: el.find('[name=level]').val(),
+    intelligence: el.find('[name=intelligence]').val()
   };
-  api.update(document, store.token)
+  api.wizardUpdate(document, store.token)
     .then(response => {
       store.item = response;
-      store.list = null; //invalidate cached list results
-      renderDetail(store);
-      store.view = 'compendiumDetail';
+      store.wizardsList = null; //invalidate cached list results
+      renderWizardDetail(store);
+      store.view = 'wizardDetail';
       renderPage(store);
     }).catch(err => {
       console.error(err);
@@ -293,12 +324,21 @@ const handleViewCompendium = function (event) {
   renderPage(store);
 };
 
-const handleViewEdit = function (event) {
+// const handleViewEdit = function (event) {
+//   event.preventDefault();
+//   const store = event.data;
+//   renderEdit(store);
+
+//   store.view = 'edit';
+//   renderPage(store);
+// };
+
+const handleViewEditWizard = function (event) {
   event.preventDefault();
   const store = event.data;
-  renderEdit(store);
+  renderWizardEdit(store);
 
-  store.view = 'edit';
+  store.view = 'edit-wizard';
   renderPage(store);
 };
 
@@ -344,6 +384,8 @@ jQuery(function ($) {
   $('#createWizard').on('submit', STORE, handleCreateWizard);
   $('#allWizards').on('click', '.wizardsDetail', STORE, handleWizardDetails);
   $('#wizards').on('click', '.viewCreateWizard', STORE, handleViewCreateWizard);
+  $('#wizardDetail').on('click', '.view-edit-wizard', STORE, handleViewEditWizard);
+  $('#edit-wizard').on('submit', STORE, handleWizardUpdate);
 
   // nav bar listeners
   $(document).on('click', '.viewWizards', STORE, handleViewWizards);

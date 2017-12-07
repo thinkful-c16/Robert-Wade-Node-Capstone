@@ -116,7 +116,7 @@
 				</div>
 				<br/>
 				<ul id="nav">
-					<li> </li><a href="" class="edit-wizard">Edit this wizard</a>
+					<li> </li><a href="" class="view-edit-wizard">Edit this wizard</a>
 					<li> </li><a href="" class="delete-wizard">Delete this wizard</a>
 					<li> </li><a href="" class="viewWizards">&lt; Back to all wizards</a>
 				</ul>
@@ -143,16 +143,20 @@
 		</fieldset>
 	</form>
 
-	<form id="edit" class="view">
+	<form id="edit-wizard" class="view">
 		<fieldset>
-			<legend>Edit</legend>
+			<legend>Edit wizard</legend>
 			<div>
-				<label for="name">Title</label>
-				<input type="text" name="title">
+				<label for="name">Wizard name:</label>
+				<input type="text" name="name">
 			</div>
 			<div>
-				<label for="name">Content</label>
-				<textarea rows="4" cols="50" name="content"></textarea>
+				<label for="level">Wizard level:</label>
+				<input type="number" name="level" min="1" max="20">
+			</div>
+			<div>
+				<label for="intelligence">Intelligence score:</label>
+				<input type="number" name="intelligence" min="1" max="30">
 			</div>
 			<button type="submit">Submit</button>
 		</fieldset>

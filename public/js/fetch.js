@@ -99,9 +99,10 @@ var api = {
       body: document ? JSON.stringify(document) : null
     }).then(normalizeResponseErrors)
       .then(res => res.json());
-  },  
-  spellUpdate: function (document) {
-    const url = buildUrl(`${COMPENDIUM_URL}${document.id}`);
+  },
+  
+  wizardUpdate: function (document) {
+    const url = buildUrl(`${WIZARDS_URL}${document.id}`);
     
     console.log('dev tools', document);
 
@@ -115,6 +116,7 @@ var api = {
     }).then(normalizeResponseErrors)
       .then(res => res.json());
   },
+
   spellRemove: function (id) {
     const url = buildUrl(`${COMPENDIUM_URL}${id}`);
 
