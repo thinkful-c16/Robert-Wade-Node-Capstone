@@ -24,14 +24,6 @@ app.use(bodyParser.json());
 
 const jsonParser = bodyParser.json();
 
-// app.get('/api/v1/spells', (req, res) => {
-//   res.status(200).json(data);
-// });
-
-// app.get('/api/v1/spells/:id', (req, res) => {
-//   res.json(data[req.params.id]);
-// });
-
 // endpoints for spells
 
 app.get('/api/v1/spells', (req, res) => {
@@ -171,7 +163,7 @@ app.post('/api/v1/wizards/:id/spellbook', jsonParser, (req, res) => {
   Wizard
     .findByIdAndUpdate(req.params.id,
       { '$push': {
-        'spellBook': {name: req.body.name, spell_id: req.body._id, prepared: false}
+        'spellBook': {spell_id: req.body._id, prepared: false}
       } },
       {new: true}
     ).then(results => {
@@ -185,7 +177,7 @@ app.post('/api/v1/wizards/:id/spellbook', jsonParser, (req, res) => {
 
 // remove spell from spellbook for a specific wizard
 
-app.put('/api/v1/wizards/:id/spellbook/delete', (req, res) => {
+app.delete('/api/v1/wizards/:id/spellbook', (req, res) => {
   Wizard
     .findByIdAndUpdate(req.params.id,
       { '$pull': {
@@ -202,13 +194,20 @@ app.put('/api/v1/wizards/:id/spellbook/delete', (req, res) => {
 
 //update spell in a spellbook (prepared:true/false)
 
-app.put('/api/v1/wizards/:id/spellbook/update', (req, res) => {
+app.put('/api/v1/wizards/:id/spellbook', (req, res) => {
   Wizard
-    .findOneAndUpdate(
-      {_id: req.params.id, 'spellBook.spell_id': req.body._id},
-      { 'spellBook.$.prepared': !'spellBook.prepared'},
-      {new: true}
-    ).then(results => {
+    .findOne({'spellBook.spell_id': req.body.spell_id})
+    .then(wizard => {
+      // console.log(wizard);
+      return wizard.spellBook.filter(spells => spells.spell_id == req.body.spell_id);
+    }).then(spellArray => {
+      console.log(spellArray);
+      return Wizard
+        .update({_id: req.params.id, 'spellBook.spell_id': req.body.spell_id},
+          { $set: {'spellBook.$.prepared': !spellArray[0].prepared} },
+          {new: true}
+        );
+    }).then(results => {
       res.status(201).json(results);
     })
     .catch(err => {
