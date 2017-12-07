@@ -96,7 +96,7 @@ app.post('/api/v1/wizards', (req, res) => {
   }
 
   let intMod = Math.floor((req.body.intelligence - 10) / 2 );
-  let maxPrep = (intMod + req.body.level);
+  let maxPrep = (intMod + parseInt(req.body.level, 10));
 
   Wizard
     .create({
@@ -123,7 +123,7 @@ app.put('/api/v1/wizards/:id', (req, res) => {
   }
 
   let intMod = Math.floor((req.body.intelligence - 10) / 2 );
-  let maxPrep = (intMod + req.body.level);
+  let maxPrep = (intMod + parseInt(req.body.level, 10));
 
   Wizard
     .findByIdAndUpdate(req.params.id,
