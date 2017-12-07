@@ -87,8 +87,8 @@ var api = {
       .then(res => res.json());
   },
 
-  spellCreate: function (document) {
-    const url = buildUrl(`${COMPENDIUM_URL}`);
+  wizardCreate: function (document) {
+    const url = buildUrl(`${WIZARDS_URL}`);
 
     return fetch(url, {
       method: 'POST',

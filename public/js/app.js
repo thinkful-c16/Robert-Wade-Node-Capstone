@@ -168,15 +168,16 @@ const handleCreateWizard = function (event) {
   const el = $(event.target);
 
   const document = {
-    title: el.find('[name=title]').val(),
-    content: el.find('[name=content]').val()
+    name: el.find('[name=name]').val(),
+    level: el.find('[name=level]').val(),
+    intelligence: el.find('[name=intelligence]').val()
   };
-  api.create(document)
+  api.wizardCreate(document)
     .then(response => {
       store.item = response;
-      store.list = null; //invalidate cached list results
-      renderDetail(store);
-      store.view = 'compendiumDetail';
+      store.wizardsList = null; //invalidate cached list results
+      renderWizardDetail(store);
+      store.view = 'wizardDetail';
       renderPage(store);
     }).catch(err => {
       console.error(err);
@@ -329,17 +330,22 @@ jQuery(function ($) {
     activeWizard: {}
   };
 
-  $('#create').on('submit', STORE, handleCreate);
-  $('#createWizard').on('submit', STORE, handleCreateWizard);
-  $('#compendiumOfSpells').on('submit', STORE, handleCompendium);
-  $('#edit').on('submit', STORE, handleUpdate);
+  // $('#create').on('submit', STORE, handleCreate);
+  // $('#edit').on('submit', STORE, handleUpdate);
 
+  // $('#detail').on('click', '.remove', STORE, handleRemove);
+  // $('#detail').on('click', '.edit', STORE, handleViewEdit);
+
+  // compendium related listeners 
   $('#result').on('click', '.compendiumDetail', STORE, handleCompendiumDetails);
+  $('#compendiumOfSpells').on('submit', STORE, handleCompendium);
+
+  // wizards related listeners
+  $('#createWizard').on('submit', STORE, handleCreateWizard);
   $('#allWizards').on('click', '.wizardsDetail', STORE, handleWizardDetails);
   $('#wizards').on('click', '.viewCreateWizard', STORE, handleViewCreateWizard);
-  $('#detail').on('click', '.remove', STORE, handleRemove);
-  $('#detail').on('click', '.edit', STORE, handleViewEdit);
 
+  // nav bar listeners
   $(document).on('click', '.viewWizards', STORE, handleViewWizards);
   $(document).on('click', '.viewSpellSearch', STORE, handleViewCompendium);
   $(document).on('click', '.viewHome', STORE, handleViewHome);
