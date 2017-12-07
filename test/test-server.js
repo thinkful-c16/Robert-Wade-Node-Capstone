@@ -13,41 +13,24 @@ const {DATABASE_URL} = require('../config');
 
 chai.use(chaiHttp);
 
-// describe('spells list', function () {
-//   it('should exist', function () {
-//     return chai.request(app)
-//       .get('/api/v1/spells')
-//       .then(function (res) {
-//         res.should.have.status(200);
-//       });
-//   });
-// });
+before(function() {
+  return runServer(DATABASE_URL, 8081);
+});
 
-
-
-  before(function() {
-    return runServer(DATABASE_URL, 8081);
-  });
-
-  after(function() {
-    return closeServer();
-  });
-
+after(function() {
+  return closeServer();
+});
 
 describe('GET endpoint for master spell list', function () {
-
-  it.only('should return all spells and give correct status', function() {
-
+  it('should return all spells and give correct status', function() {
     let response;
-
     return chai.request(app)
       .get('/api/v1/spells')
       .then(function(res) {
         response = res;
-        console.log(response);
         res.should.have.status(200);
         res.body.should.have.lengthOf.at.least(1);
-        return Spell.count();
+        return Spell.find({ classes: { $in: [ 'wizard' ] } }).count();
       })
       .then(function(count) {
         response.body.should.have.lengthOf(count);
@@ -55,30 +38,25 @@ describe('GET endpoint for master spell list', function () {
   });
 
   it('should return spells in expected format with expected fields', function() {
-
     let resSpell;
-
     return chai
       .request(app)
       .get('/api/v1/spells')
       .then(res=>{
-        expect(res).to.be.json;
-        expect(res).to.be.a('array');
+        res.should.be.json;
+        res.body.should.be.a('array');
 
         res.body.forEach(spell=>{
-          expect(spell).to.be.a('object');
-          expect(spell).to.include.keys('name', 'description', 'level', 'type');  
+          spell.should.be.a('object');
+          spell.should.include.keys('name', 'description', 'level', 'type');  
         });
         resSpell = res.body[0];
-        return Spell.findById(resSpell.id);
+        return Spell.findById(resSpell._id);
       })
       .then(spell=>{
-        expect(spell.id).to.equal(resSpell.id);
-        expect(spell.name).to.equal(resSpell.name);
-        expect(spell.description).to.equal(resSpell.description);
-        // resSpell.id.should.equal(spell.id);
-        // resSpell.name.should.equal(spell.id);
-        // resSpell.description.should.equal(spell.description);
+        resSpell._id.should.equal(`${spell._id}`);
+        resSpell.name.should.equal(spell.name);
+        resSpell.description.should.equal(spell.description);
       });
   });
 });

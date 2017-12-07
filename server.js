@@ -33,9 +33,8 @@ app.use(bodyParser.json());
 // endpoints for spells
 
 app.get('/api/v1/spells', (req, res) => {
-  console.log('I am here');
   Spell
-    .find({ classes: { $in: [ 'wizard' ] } })
+    .find( {classes: { $in: [ 'wizard' ] } })
     .then(spells => {
       res.status(200).json(spells);
     })

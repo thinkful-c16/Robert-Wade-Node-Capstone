@@ -34,7 +34,7 @@ const renderCompendiumResults = function (store) {
 
 const renderWizardsResults = function (store) {
   const listItems = store.wizardsList.map((item) => {
-    console.log(item.url);
+    // console.log(item.url);
     return `<li id="${item._id}">
                 <a href="${item.url}" class="wizardsDetail">${item.name}, level ${item.level} wizard</a>
                 <a href="${item.url}" class="this-spell-book">View spell book</a>
@@ -320,7 +320,7 @@ const handleSpellBook = function (event) {
   api.wizardDetails(id)
     .then(wizard => {
       store.activeWizard = wizard;
-      console.log(store.activeWizard);
+      // console.log(store.activeWizard);
     }).then(() => {
       api.spellBook(id)
         .then(response => {
