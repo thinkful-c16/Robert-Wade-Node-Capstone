@@ -9,7 +9,7 @@ const expect = chai.expect;
 
 const {Spell, Wizard}=require('../models');
 const {app, runServer, closeServer} = require('../server');
-const {TEST_DATABASE_URL} = require('../config');
+const {DATABASE_URL} = require('../config');
 
 chai.use(chaiHttp);
 
@@ -23,20 +23,20 @@ chai.use(chaiHttp);
 //   });
 // });
 
-describe('wizardly test db resource', function() {
+
 
   before(function() {
-    return runServer(TEST_DATABASE_URL);
+    return runServer(DATABASE_URL, 8081);
   });
 
   after(function() {
     return closeServer();
   });
-});
+
 
 describe('GET endpoint for master spell list', function () {
 
-  it('should return all spells and give correct status', function() {
+  it.only('should return all spells and give correct status', function() {
 
     let response;
 
@@ -44,12 +44,13 @@ describe('GET endpoint for master spell list', function () {
       .get('/api/v1/spells')
       .then(function(res) {
         response = res;
+        console.log(response);
         res.should.have.status(200);
-        res.body.should.have.length.of.at.least(1);
+        res.body.should.have.lengthOf.at.least(1);
         return Spell.count();
       })
       .then(function(count) {
-        response.body.should.have.length.of(count);
+        response.body.should.have.lengthOf(count);
       });
   });
 

@@ -444,7 +444,7 @@ const handleViewCreateWizard = function (event) {
 jQuery(function ($) {
 
   const STORE = {
-    demo: true,        // display in demo mode true | false
+    demo: false,        // display in demo mode true | false
     view: 'list',       // current view: splash page | spell list | spell details | wizards | wizard details | spell book
     query: {},          // search query values
     wizardsList: null,
