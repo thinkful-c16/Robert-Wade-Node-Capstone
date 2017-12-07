@@ -65,16 +65,19 @@ describe('GET endpoint for master spell list', function () {
         expect(res).to.be.a('array');
 
         res.body.forEach(spell=>{
-          spell.should.be.a('object');
-          spell.should.include.keys('name', 'description', 'level', 'type');  
+          expect(spell).to.be.a('object');
+          expect(spell).to.include.keys('name', 'description', 'level', 'type');  
         });
         resSpell = res.body[0];
         return Spell.findById(resSpell.id);
       })
       .then(spell=>{
-        resSpell.id.should.equal(spell.id);
-        resSpell.name.should.equal(spell.id);
-        resSpell.description.should.equal(spell.description);
+        expect(spell.id).to.equal(resSpell.id);
+        expect(spell.name).to.equal(resSpell.name);
+        expect(spell.description).to.equal(resSpell.description);
+        // resSpell.id.should.equal(spell.id);
+        // resSpell.name.should.equal(spell.id);
+        // resSpell.description.should.equal(spell.description);
       });
   });
 });
