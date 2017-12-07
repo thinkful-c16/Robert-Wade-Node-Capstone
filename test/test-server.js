@@ -60,3 +60,44 @@ describe('GET endpoint for master spell list', function () {
       });
   });
 });
+
+describe('GET endpoint for wizard list', function () {
+  it('should return all wizards and give correct status', function() {
+    let resWizard;
+    return chai
+      .request(app)
+      .get('/api/v1/wizards')
+      .then(res=>{
+        res.should.be.json;
+        res.body.should.be.a('array');
+
+        res.body.forEach(wizard=>{
+          wizard.should.be.a('object');
+          wizard.should.include.keys('name', 'level', 'intelligence', 'intelligenceModifier', 'maxPrepared', 'spellBook');  
+        });
+        resWizard = res.body[0];
+        return Wizard.findById(resWizard._id);
+      })
+      .then(wizard=>{
+        resWizard._id.should.equal(`${wizard._id}`);
+        resWizard.name.should.equal(wizard.name);
+        resWizard.level.should.equal(wizard.level);
+        resWizard.intelligence.should.equal(wizard.intelligence);
+        resWizard.intelligenceModifier.should.equal(wizard.intelligenceModifier);
+        resWizard.maxPrepared.should.equal(wizard.maxPrepared);
+      });
+  });
+});
+
+// describe('POST endpoint for wizard list', function () {
+//   //
+// });
+
+// describe('PUT endpoint for wizard list', function () {
+//   //
+// });
+
+// describe('DELETE endpoint for wizard list', function () {
+//   //
+// });
+
