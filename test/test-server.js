@@ -5,6 +5,7 @@ const chaiHttp = require('chai-http');
 const mongoose = require('mongoose');
 
 const should = chai.should();
+const expect = chai.expect;
 
 const {Spell, Wizard}=require('../models');
 const {app, runServer, closeServer} = require('../server');
@@ -56,23 +57,27 @@ describe('GET endpoint for master spell list', function () {
 
     let resSpell;
 
-    return chai.request(app)
+    return chai
+      .request(app)
       .get('/api/v1/spells')
-      .then(function(res) {
-        res.should.be.json;
-        res.should.be.a('array');
+      .then(res=>{
+        expect(res).to.be.json;
+        expect(res).to.be.a('array');
 
-        res.body.forEach(spell => {
-          spell.should.be.a('object');
-          spell.should.include.keys('name', 'description', 'level', 'type');  
+        res.body.forEach(spell=>{
+          expect(spell).to.be.a('object');
+          expect(spell).to.include.keys('name', 'description', 'level', 'type');  
         });
         resSpell = res.body[0];
         return Spell.findById(resSpell.id);
       })
-      .then(function(spell) {
-        resSpell.id.should.equal(spell.id);
-        resSpell.name.should.equal(spell.id);
-        resSpell.description.should.equal(spell.description);
+      .then(spell=>{
+        expect(spell.id).to.equal(resSpell.id);
+        expect(spell.name).to.equal(resSpell.name);
+        expect(spell.description).to.equal(resSpell.description);
+        // resSpell.id.should.equal(spell.id);
+        // resSpell.name.should.equal(spell.id);
+        // resSpell.description.should.equal(spell.description);
       });
   });
 });
