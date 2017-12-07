@@ -13,11 +13,14 @@
 
 <body>
 	<h2>Wizardly 5e</h2>
-	<ul id="nav">
+	<button type="submit" class="viewHome">Home</button>
+	<button type="submit" class="viewSpellSearch">Spells</button>
+	<button type="submit" class="viewWizards">Wizards</button>
+<!-- 	<ul id="nav">
 		<li> </li><a href="" class="viewHome">Home</a>
 		<li> </li><a href="" class="viewSpellSearch">Spells</a>
 		<li> </li><a href="" class="viewWizards">Wizards</a>
-	</ul>
+	</ul> -->
 
 	<section id="home" class= "view">
 		<h2>Welcome to Wizardly 5e!</h2>
@@ -67,7 +70,7 @@
 
 	<form id="wizards" class="view">
 		<div id="allWizards"></div>
-		<a href="" class="viewCreateWizard">Create a Wizard</a>
+		<button type="submit" class="viewCreateWizard">New Wizard</button>
 	</form>
 
 	<section id="wizardDetail" class="view">
@@ -86,11 +89,14 @@
 					<span class="max-prepared"></span>
 					<label for="spell-book">Spell book:</label>
 					<span class="spell-book"></span>
-				<ul id="nav">
+					<button type="submit" class="view-edit-wizard">Edit</button>
+					<button type="submit" class="delete-wizard">Delete</button>
+					<button type="reset" class="viewWizards">Go Back</button>
+<!-- 				<ul id="nav">
 					<li> </li><a href="" class="view-edit-wizard">Edit this wizard</a>
 					<li> </li><a href="" class="delete-wizard">Delete this wizard</a>
 					<li> </li><a href="" class="viewWizards">&lt; Back to all wizards</a>
-				</ul>
+				</ul> -->
 			</fieldset>
 		</div>
 	</section>
@@ -110,7 +116,7 @@
 				<label for="intelligence">Intelligence score:</label>
 				<input type="number" name="intelligence" min="1" max="30">
 			</div>
-			<button type="submit">Submit</button>
+			<button type="submit" class="createWizardNow">Create</button><button type="reset" class="viewWizards">Go Back</button>
 		</fieldset>
 	</form>
 
@@ -129,7 +135,7 @@
 				<label for="intelligence">Intelligence score:</label>
 				<input type="number" name="intelligence" min="1" max="30">
 			</div>
-			<button type="submit">Submit</button>
+			<button type="submit" class="updateWizardNow">Update</button><button type="reset" class="viewWizards">Go Back</button>
 		</fieldset>
 	</form>
 
