@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 
 app.get('/api/v1/spells', (req, res) => {
   Spell
-    .find()
+    .find({ classes: { $in: [ 'wizard' ] } })
     .then(spells => {
       res.status(200).json(spells);
     })
