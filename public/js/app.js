@@ -1,7 +1,8 @@
 /* global jQuery, handle, $, api */
 'use strict';
 
-const ITEMS_URL = '/api/v1/spells/';
+const COMPENDIUM_URL = '/api/v1/spells/';
+const WIZARDS_URL = '/api/v1/wizards/';
 
 const renderPage = function (store) {
   if (store.demo) {
@@ -31,6 +32,15 @@ const renderCompendiumResults = function (store) {
   $('#result').empty().append('<ul>').find('ul').append(listItems);
 };
 
+const renderWizardsResults = function (store) {
+  const listItems = store.wizardsList.map((item) => {
+    return `<li id="${item._id}">
+                <a href="${item.url}" class="wizardsDetail">${item.name}, level ${item.level} wizard</a>
+              </li>`;
+  });
+  $('#allWizards').empty().append('<ul>').find('ul').append(listItems);
+};
+
 const renderEdit = function (store) {
   const el = $('#edit');
   const item = store.item;
@@ -49,6 +59,17 @@ const renderDetail = function (store) {
   el.find('.range').text(item.range);
   el.find('.components').text(item.components.raw);
   el.find('.type').text(item.type);
+};
+
+const renderWizardDetail = function (store) {
+  const el = $('#wizardDetail');
+  const item = store.item;
+  el.find('.name').text(item.name);
+  el.find('.level').text(item.level);
+  el.find('.intelligence').text(item.intelligence);
+  el.find('.intelligence-modifier').text(item.intelligenceModifier);
+  el.find('.max-prepared').text(item.maxPrepared);
+  el.find('.spell-book').text(item.spellBook);
 };
 
 // const handleSearch = function (event) {
@@ -85,7 +106,7 @@ const handleCompendium = function (event) {
       title: el.find('[name=spellName]').val()
     };
   }
-  api.search(query)
+  api.spellSearch(query)
     .then(response => {
       store.compendiumList = response;
       renderCompendiumResults(store);
@@ -97,7 +118,51 @@ const handleCompendium = function (event) {
     });
 };
 
+const handleWizards = function (event) {
+  event.preventDefault();
+  const store = event.data;
+  const el = $(event.target);
+  const spellName = el.find('[name=wizardName]').val();
+  var query;
+  if (spellName) {
+    query = {
+      title: el.find('[name=wizardName]').val()
+    };
+  }
+  api.wizardSearch(query)
+    .then(response => {
+      store.wizardsList = response;
+      renderWizardsResults(store);
+
+      store.view = 'wizards';
+      renderPage(store);
+    }).catch(err => {
+      console.error(err);
+    });
+};
+
 const handleCreate = function (event) {
+  event.preventDefault();
+  const store = event.data;
+  const el = $(event.target);
+
+  const document = {
+    title: el.find('[name=title]').val(),
+    content: el.find('[name=content]').val()
+  };
+  api.create(document)
+    .then(response => {
+      store.item = response;
+      store.list = null; //invalidate cached list results
+      renderDetail(store);
+      store.view = 'compendiumDetail';
+      renderPage(store);
+    }).catch(err => {
+      console.error(err);
+    });
+};
+
+const handleCreateWizard = function (event) {
   event.preventDefault();
   const store = event.data;
   const el = $(event.target);
@@ -140,19 +205,39 @@ const handleUpdate = function (event) {
     });
 };
 
-const handleDetails = function (event) {
+const handleCompendiumDetails = function (event) {
   event.preventDefault();
   const store = event.data;
   const el = $(event.target);
 
   const id = el.closest('li').attr('id');
 
-  api.details(id)
+  api.spellDetails(id)
     .then(response => {
       store.item = response;
       renderDetail(store);
 
       store.view = 'compendiumDetail';
+      renderPage(store);
+
+    }).catch(err => {
+      store.error = err;
+    });
+};
+
+const handleWizardDetails = function (event) {
+  event.preventDefault();
+  const store = event.data;
+  const el = $(event.target);
+
+  const id = el.closest('li').attr('id');
+
+  api.wizardDetails(id)
+    .then(response => {
+      store.item = response;
+      renderWizardDetail(store);
+
+      store.view = 'wizardDetail';
       renderPage(store);
 
     }).catch(err => {
@@ -177,6 +262,10 @@ const handleRemove = function (event) {
 const handleViewWizards = function (event) {
   event.preventDefault();
   const store = event.data;
+  if (!store.wizardsList) {
+    handleWizards(event);
+    return;
+  }
   store.view = 'wizards';
   renderPage(store);
 };
@@ -219,6 +308,13 @@ const handleViewHome = function (event) {
   renderPage(store);
 };
 
+const handleViewCreateWizard = function (event) {
+  event.preventDefault();
+  const store = event.data;
+  store.view='createWizard';
+  renderPage(store);
+};
+
 //on document ready bind events
 jQuery(function ($) {
 
@@ -234,10 +330,13 @@ jQuery(function ($) {
   };
 
   $('#create').on('submit', STORE, handleCreate);
+  $('#createWizard').on('submit', STORE, handleCreateWizard);
   $('#compendiumOfSpells').on('submit', STORE, handleCompendium);
   $('#edit').on('submit', STORE, handleUpdate);
 
-  $('#result').on('click', '.compendiumDetail', STORE, handleDetails);
+  $('#result').on('click', '.compendiumDetail', STORE, handleCompendiumDetails);
+  $('#allWizards').on('click', '.wizardsDetail', STORE, handleWizardDetails);
+  $('#wizards').on('click', '.viewCreateWizard', STORE, handleViewCreateWizard);
   $('#detail').on('click', '.remove', STORE, handleRemove);
   $('#detail').on('click', '.edit', STORE, handleViewEdit);
 

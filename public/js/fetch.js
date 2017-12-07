@@ -38,8 +38,9 @@ function normalizeResponseErrors(res) {
 }
 
 var api = {
-  search: function (query) {
-    const url = buildUrl(ITEMS_URL, query);
+
+  spellSearch: function (query) {
+    const url = buildUrl(COMPENDIUM_URL, query);
 
     return fetch(url, {
       method: 'GET',
@@ -49,8 +50,9 @@ var api = {
     }).then(normalizeResponseErrors)
       .then(res => res.json());
   },
-  details: function (id) {
-    const url = buildUrl(`${ITEMS_URL}${id}`);
+
+  wizardSearch: function (query) {
+    const url = buildUrl(WIZARDS_URL, query);
 
     return fetch(url, {
       method: 'GET',
@@ -60,8 +62,33 @@ var api = {
     }).then(normalizeResponseErrors)
       .then(res => res.json());
   },
-  create: function (document) {
-    const url = buildUrl(`${ITEMS_URL}`);
+
+  spellDetails: function (id) {
+    const url = buildUrl(`${COMPENDIUM_URL}${id}`);
+
+    return fetch(url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(normalizeResponseErrors)
+      .then(res => res.json());
+  },
+
+  wizardDetails: function (id) {
+    const url = buildUrl(`${WIZARDS_URL}${id}`);
+
+    return fetch(url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(normalizeResponseErrors)
+      .then(res => res.json());
+  },
+
+  spellCreate: function (document) {
+    const url = buildUrl(`${COMPENDIUM_URL}`);
 
     return fetch(url, {
       method: 'POST',
@@ -73,8 +100,8 @@ var api = {
     }).then(normalizeResponseErrors)
       .then(res => res.json());
   },  
-  update: function (document) {
-    const url = buildUrl(`${ITEMS_URL}${document.id}`);
+  spellUpdate: function (document) {
+    const url = buildUrl(`${COMPENDIUM_URL}${document.id}`);
     
     console.log('dev tools', document);
 
@@ -88,8 +115,8 @@ var api = {
     }).then(normalizeResponseErrors)
       .then(res => res.json());
   },
-  remove: function (id) {
-    const url = buildUrl(`${ITEMS_URL}${id}`);
+  spellRemove: function (id) {
+    const url = buildUrl(`${COMPENDIUM_URL}${id}`);
 
     return fetch(url, {
       method: 'DELETE',

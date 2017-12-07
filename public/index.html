@@ -86,18 +86,59 @@
 		<a href="" class="viewCreateWizard">Create a Wizard</a>
 	</form>
 
-	<form id="create" class="view">
+	<section id="wizardDetail" class="view">
+		<div id="wizardDetails">
+			<fieldset>
+				<legend>Wizard Details</legend>
+				<div>
+					<label for="name">Name:</label>
+					<span class="name"></span>
+				</div>
+				<div>
+					<label for="level">Level:</label>
+					<span class="level"></span>
+				</div>
+				<div>
+					<label for="intelligence">Intelligence:</label>
+					<span class="intelligence"></span>
+				</div>
+				<div>
+					<label for="intelligence-modifier">Intelligence Modifier:</label>
+					<span class="intelligence-modifier"></span>
+				</div>
+				<div>
+					<label for="max-prepared">Maximum number of prepared spells:</label>
+					<span class="max-prepared"></span>
+				</div>
+				<div>
+					<label for="spell-book">Spell book:</label>
+					<span class="spell-book"></span>
+				</div>
+				<br/>
+				<ul id="nav">
+					<li> </li><a href="" class="edit-wizard">Edit this wizard</a>
+					<li> </li><a href="" class="delete-wizard">Delete this wizard</a>
+					<li> </li><a href="" class="viewWizards">&lt; Back to all wizards</a>
+				</ul>
+			</fieldset>
+		</div>
+	</section>
+
+	<form id="createWizard" class="view">
 		<fieldset>
-			<legend>Create</legend>
+			<legend>Create a wizard</legend>
 			<div>
-				<label for="name">Title</label>
+				<label for="name">Wizard name:</label>
 				<input type="text" name="title">
 			</div>
 			<div>
-				<label for="name">Content</label>
-				<textarea rows="4" cols="50" name="content"></textarea>
+				<label for="level">Wizard level:</label>
+				<input type="number" name="level" min="1" max="20">
 			</div>
-
+			<div>
+				<label for="intelligence">Intelligence score:</label>
+				<input type="number" name="intelligence" min="1" max="30">
+			</div>
 			<button type="submit">Submit</button>
 		</fieldset>
 	</form>
