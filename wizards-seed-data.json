@@ -1,0 +1,42 @@
+[
+  {
+      "_id": "5a285e10420d3049d015d47c",
+      "name": "Balthasar",
+      "level": 6,
+      "intelligence": 20,
+      "intelligenceModifier": 5,
+      "maxPrepared": 11,
+      "__v": 0,
+      "spellBook": []
+  },
+  {
+      "_id": "5a28618e4cd9f44ae41b2555",
+      "name": "Beedle",
+      "level": 6,
+      "intelligence": 18,
+      "intelligenceModifier": 4,
+      "maxPrepared": 10,
+      "__v": 0,
+      "spellBook": []
+  },
+  {
+      "_id": "5a28aeab8591964f6cdf049c",
+      "name": "Gotzugumi",
+      "level": 8,
+      "intelligence": 18,
+      "intelligenceModifier": 4,
+      "maxPrepared": 12,
+      "__v": 0,
+      "spellBook": []
+  },
+  {
+      "_id": "5a28b3340457cc4a98879754",
+      "name": "Farnhamish",
+      "level": 14,
+      "intelligence": 17,
+      "intelligenceModifier": 3,
+      "maxPrepared": 17,
+      "__v": 0,
+      "spellBook": []
+  }
+]
