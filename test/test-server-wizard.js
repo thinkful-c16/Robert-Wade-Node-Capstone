@@ -112,7 +112,7 @@ describe('testing all wizard data', function(){
         .then(function(res){
           updateWizard.id=res.body[0]._id;
           return chai.request(app)
-            .put(`/api/v1/wizards/${updateWizard._id}`)
+            .put(`/api/v1/wizards/${updateWizard.id}`)
             .send(updateWizard);
         })
         .then(function(res){
