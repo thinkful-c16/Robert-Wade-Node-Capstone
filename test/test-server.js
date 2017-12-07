@@ -35,7 +35,7 @@ describe('wizardly test db resource', function() {
 
 describe('GET endpoint for master spell list', function () {
 
-  it('should return all spells and give correct status', function() {
+  it('should return all spells and give correct status', function(done) {
 
     let response;
 
@@ -52,7 +52,7 @@ describe('GET endpoint for master spell list', function () {
       });
   });
 
-  it('should return spells in expected format with expected fields', function() {
+  it('should return spells in expected format with expected fields', function(done) {
 
     let resSpell;
 
