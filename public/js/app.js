@@ -88,7 +88,8 @@ const renderSpellBookResults = function (store) {
                 <a href="${item.url}" class="spellBookDetail">${item.name}</a>
               </li>`;
   });
-  $('#spell-book-result').empty().append('<ul>').find('ul').append(listItems);
+  $('#spell-book-result').empty().append(`<h3>${store.activeWizard.name}'s Spell Book: </h3>`);
+  $('#spell-book-result').append('<ul>').find('ul').append(listItems);
 };
 
 // const handleSearch = function (event) {
@@ -288,26 +289,62 @@ const handleWizardDetails = function (event) {
     });
 };
 
+const handleSpellBookWizardDetails = function (event) {
+  event.preventDefault();
+  const store = event.data;
+
+  const id = store.activeWizard._id;
+
+  api.wizardDetails(id)
+    .then(response => {
+      store.item = response;
+      renderWizardDetail(store);
+
+      store.view = 'wizardDetail';
+      renderPage(store);
+
+    }).catch(err => {
+      store.error = err;
+    });
+};
+
 const handleSpellBook = function (event) {
   event.preventDefault();
   const store = event.data;
   const el = $(event.target);
 
   const id = el.closest('li').attr('id');
-  store.activeWizardId = el.closest('li').attr('id');
-  console.log(store.activeWizardId);
+  // store.activeWizardId = el.closest('li').attr('id');
+  // console.log(store.activeWizardId);
 
-  api.spellBook(id)
-    .then(response => {
-      store.spellBookList = response;
-      renderSpellBookResults(store);
+  api.wizardDetails(id)
+    .then(wizard => {
+      store.activeWizard = wizard;
+      console.log(store.activeWizard);
+    }).then(() => {
+      api.spellBook(id)
+        .then(response => {
+          store.spellBookList = response;
+          renderSpellBookResults(store);
 
-      store.view = 'spell-book-section';
-      renderPage(store);
-
-    }).catch(err => {
-      store.error = err;
+          store.view = 'spell-book-section';
+          renderPage(store);
+        }).catch(err => {
+          store.error = err;
+        });
     });
+
+  // api.spellBook(id)
+  //   .then(response => {
+  //     store.spellBookList = response;
+  //     renderSpellBookResults(store);
+
+  //     store.view = 'spell-book-section';
+  //     renderPage(store);
+
+  //   }).catch(err => {
+  //     store.error = err;
+  //   });
 };
 
 // const handleRemove = function (event) {
@@ -414,7 +451,7 @@ jQuery(function ($) {
     compendiumList: null,         // search result - array of objects (documents)
     spellBookList: null,
     item: null,         // currently selected document
-    activeWizardId: null
+    activeWizard: {}
   };
 
   // $('#create').on('submit', STORE, handleCreate);
@@ -437,6 +474,7 @@ jQuery(function ($) {
 
   // spell book related listeners
   $('#allWizards').on('click', '.this-spell-book', STORE, handleSpellBook);
+  $('#spell-book-section').on('click', '.spell-book-wizards-detail', STORE, handleSpellBookWizardDetails);
 
   // nav bar listeners
   $(document).on('click', '.viewWizards', STORE, handleViewWizards);
