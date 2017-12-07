@@ -294,6 +294,8 @@ const handleSpellBook = function (event) {
   const el = $(event.target);
 
   const id = el.closest('li').attr('id');
+  store.activeWizardId = el.closest('li').attr('id');
+  console.log(store.activeWizardId);
 
   api.spellBook(id)
     .then(response => {
@@ -412,7 +414,7 @@ jQuery(function ($) {
     compendiumList: null,         // search result - array of objects (documents)
     spellBookList: null,
     item: null,         // currently selected document
-    activeWizard: {}
+    activeWizardId: null
   };
 
   // $('#create').on('submit', STORE, handleCreate);
