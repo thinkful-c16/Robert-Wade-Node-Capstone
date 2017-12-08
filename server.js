@@ -27,8 +27,11 @@ const jsonParser = bodyParser.json();
 // endpoints for spells
 
 app.get('/api/v1/spells', (req, res) => {
+  const orderBy = req.query.orderby || 'name';
   Spell
     .find( {classes: { $in: [ 'wizard' ] } })
+    .where()
+    .sort(orderBy)
     .then(spells => {
       res.status(200).json(spells);
     })

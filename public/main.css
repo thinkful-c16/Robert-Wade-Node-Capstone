@@ -15,6 +15,13 @@ label {
   width: 80px;
 }
 
+#logo {
+  content: url('./images/Logo.png');
+}
+
+#nav-bar {
+  background-image: url('./images/leather.jpg')
+}
 /*button, input[type=submit] {
   height: 30px;
   width: 100px;
@@ -95,6 +102,16 @@ button {
 }
 
 #compendiumDetail{
+  height: 540px;
+  width: 90%;
+  margin: 0 auto;
+  border: 3px solid grey;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-image: url('./images/paper.jpg');
+}
+
+#spell-book-detail{
   height: 540px;
   width: 90%;
   margin: 0 auto;

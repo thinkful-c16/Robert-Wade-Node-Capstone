@@ -116,7 +116,7 @@ const renderSpellBookResults = function (store) {
                 <p>Prepared? : ${item.prepared}</p>
               </li>`;
   });
-  
+
   $('#spell-book-result').empty().append(`<h3>${store.activeWizard.name}'s Spell Book: </h3>`);
   $('#spell-book-result').append('<ul>').find('ul').append(listItems);
 };
@@ -462,37 +462,8 @@ const handleSpellBook = function (event) {
           store.error = err;
         });
     });
-
-  // api.spellBook(id)
-  //   .then(response => {
-  //     store.spellBookList = response;
-  //     renderSpellBookResults(store);
-
-  //     store.view = 'spell-book-section';
-  //     renderPage(store);
-
-  //   }).catch(err => {
-  //     store.error = err;
-  //   });
-
-  // store.spellBookList.map(spell => {
-  //   return store.spellBookListDetails.push(api.spellDetails(spell.spell_id));
-  // });
 };
 
-// const handleRemove = function (event) {
-//   event.preventDefault();
-//   const store = event.data;
-//   const id = store.item.id;
-
-//   api.remove(id, store.token)
-//     .then(() => {
-//       store.list = null; //invalidate cached list results
-//       return handleSearch(event);
-//     }).catch(err => {
-//       console.error(err);
-//     });
-// };
 
 const handleViewWizards = function (event) {
   event.preventDefault();
