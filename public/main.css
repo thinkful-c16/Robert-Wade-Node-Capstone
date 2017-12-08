@@ -1,13 +1,21 @@
 form, section {
   margin-top: 10px;
 }
+
+body{
+  font-family: 'Aclonica', 'Arial', san-serif;
+  font-size: 16px;
+  background-image: url('./images/fireballs2.png'), url('./images/texture5.png');
+  background-repeat: repeat;
+}
+
 label {
   display: block;
   display:inline-block;
   width: 80px;
 }
 
-button, input[type=submit] {
+/*button, input[type=submit] {
   height: 30px;
   width: 100px;
   background-color: lightblue;
@@ -19,6 +27,41 @@ button {
   margin-left: 20px;
   margin-top: 20px;
   background-color: lightblue;
+}*/
+
+.viewHome{
+  height: 61px;
+  width: 110px;
+  background-image: url('./images/Home button.png');
+  background-repeat: no-repeat;
+}
+
+.viewSpellSearch{
+  height: 72px;
+  width: 145px;
+  background-image: url('./images/Spells button.png');
+  background-size: auto;
+}
+
+.viewWizards{
+  height: 70px;
+  width: 173px;
+  background-image: url('./images/Wizards button.png');
+  background-repeat: no-repeat;
+}
+
+.viewCreateWizard{
+  height: 67px;
+  width: 260px;
+  background-image: url('./images/New wizard button.png');
+  background-repeat: no-repeat;
+}
+
+.createWizardNow{
+  height: 69px;
+  width: 130px;
+  background-image: url('./images/Create button.png');
+  background-repeat: no-repeat;
 }
 
 #nav li {
@@ -26,47 +69,63 @@ button {
 }
 
 #home{
-  height: 320px;
-  border: 3px solid red;
+  height: 540px;
+  border: 3px solid grey;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-image: url('./images/paper.jpg');
 }
 
 #compendiumOfSpells{
-  height: 320px;
-  border: 3px solid Blue;
+  height: 540px;
+  border: 3px solid grey;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-image: url('./images/paper.jpg');
 }
 
 #spellList{
   position: absolute;
-  background-color: lightyellow;
-  width: 500px;
-  max-height: 312px;
+  width: 90%;
+  max-height: 535px;
   overflow: auto;
+  column-count: 3;
 }
 
 #compendiumDetail{
-  height: 320px;
-  border: 3px solid purple;
+  height: 540px;
+  width: 90%;
+  margin: 0 auto;
+  border: 3px solid grey;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-image: url('./images/paper.jpg');
 }
 
 #spellDetails{
-  position: absolute;
-  background-color: lightblue;
-  width: 500px;
-  max-height: 312px;
+  margin: 0 auto;
+  width: 85%;
+  max-height: 535px;
   overflow: auto;
 }
 
 #wizards{
   position: relative;
-  height: 320px;
-  border: 3px solid green;
+  height: 540px;
+  border: 3px solid grey;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-image: url('./images/paper.jpg');
 }
 
 #allWizards{
   position: absolute;
-  background-color: lightgreen;
-  width: 500px;
-  max-height: 282px;
+  width: 95%;
+  max-height: 454px;
   overflow: auto;
 }
 
@@ -77,30 +136,55 @@ button {
 }
 
 #wizardDetail{
-  height: 320px;
-  border: 3px solid brown;
+  height: 540px;
+  border: 3px solid grey;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-image: url('./images/paper.jpg');
+}
+
+#wizardDetails{
+  position: absolute;
+  width: 85%;
+  height: 535px;
 }
 
 #createWizard{
-  height: 320px;
-  border: 3px solid yellow;
+  height: 540px;
+  border: 3px solid grey;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-image: url('./images/paper.jpg');
 }
 
 #edit-wizard{
-  height: 320px;
-  border: 3px solid darkorange;
+  height: 540px;
+  border: 3px solid grey;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-image: url('./images/paper.jpg');
 }
 
 #spell-book-section{
-  height: 320px;
-  border: 3px solid fuchsia;
+  height: 540px;
+  border: 3px solid grey;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-image: url('./images/paper.jpg');
 }
 
 #spell-book{
   position: absolute;
-  background-color: mistyrose;
-  width: 500px;
-  max-height: 312px;
+  width: 95%;
+  max-height: 454px;
   overflow: auto;
 }
 
