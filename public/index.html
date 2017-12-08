@@ -13,7 +13,6 @@
 </head>
 
 <body>
-	<!-- <h2>Wizardly 5e</h2> -->
 	<div id="nav-bar">
 		<span id="logo"></span>
 		<form class="nav-bar-buttons">
@@ -21,13 +20,6 @@
 			<button type="submit" class="viewWizards"></button>
 		</form>
 	</div>
-	<!-- <button type="submit" class="viewHome">Home</button>
-	<!-- <button type="submit" class="viewSpellSearch">Spells</button> -->
-	<!-- <button type="submit" class="viewWizards">Wizards</button> -->
- 	<!--<ul id="nav">
-		<li></li><span class="viewHome"></span>
-		<li></li><span class="viewWizards"></span>
-	</ul> -->
 
 	<section id="home" class= "view">
 		<h2>Welcome to Wizardly 5e!</h2>
@@ -96,7 +88,7 @@
 				<div id="allWizards"></div>
 			</fieldset>
 		</div>
-		<button type="submit" class="viewCreateWizard">New Wizard</button>
+		<button type="submit" class="viewCreateWizard"></button>
 	</section>
 
 	<section id="wizardDetail" class="view">
@@ -115,11 +107,6 @@
 				<button type="submit" class="view-edit-wizard">Edit</button>
 				<button type="submit" class="delete-wizard">Delete</button>
 				<button type="reset" class="this-spell-book">Go Back</button>
-<!-- 				<ul id="nav">
-					<li> </li><a href="" class="view-edit-wizard">Edit this wizard</a>
-					<li> </li><a href="" class="delete-wizard">Delete this wizard</a>
-					<li> </li><a href="" class="viewWizards">&lt; Back to all wizards</a>
-				</ul> -->
 			</fieldset>
 		</div>
 	</section>
@@ -139,7 +126,12 @@
 				<label for="intelligence">Intelligence score:</label>
 				<input type="number" name="intelligence" min="1" max="30">
 			</div>
-			<button type="submit" class="createWizardNow">Create</button><button type="reset" class="viewWizards">Go Back</button>
+			<br/>
+			<br/>
+			<form class="create-wizard-buttons">
+				<button type="submit" class="createWizardNow"></button>
+				<button type="reset" class="viewWizards"></button>
+			</form>
 		</fieldset>
 	</form>
 

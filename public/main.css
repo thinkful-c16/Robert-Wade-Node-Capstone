@@ -30,21 +30,27 @@ label {
 /*Buttons:*/
 
 .viewHome{
-  border: none;
   background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
   height: 78px;
   width: 154px;
   background-image: url('./images/Home button.png');
-  background-repeat: no-repeat;
 }
 
 .viewWizards{
-  border: none;
   background-color: Transparent;
-  height: 84px;
-  width: 198px;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+  height: 89px;
+  width: 200px;
   background-image: url('./images/Wizards button.png');
-  background-repeat: no-repeat;
 }
 
 .viewSpellSearch{
@@ -55,17 +61,30 @@ label {
 }
 
 .viewCreateWizard{
-  height: 67px;
-  width: 260px;
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+  height: 84px;
+  width: 272px;
+  position: absolute;
+  left: 15px;
+  bottom: 2px;
   background-image: url('./images/New wizard button.png');
-  background-repeat: no-repeat;
 }
 
 .createWizardNow{
-  height: 69px;
-  width: 130px;
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+  height: 82px;
+  width: 140px;
   background-image: url('./images/Create button.png');
-  background-repeat: no-repeat;
 }
 
 /*End Buttons:*/
@@ -156,12 +175,6 @@ label {
   width: 95%;
   max-height: 454px;
   overflow: auto;
-}
-
-.viewCreateWizard{
-  position: absolute;
-  left: 150px;
-  bottom: 0px;
 }
 
 #wizardDetail{
