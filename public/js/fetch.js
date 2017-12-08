@@ -141,6 +141,48 @@ var api = {
       .then(res => res.json());
   },
 
+  spellBookAdd: function (id, document) {
+    const url = buildUrl(`${WIZARDS_URL}${id}/spellbook`);
+    
+    return fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: document ? JSON.stringify(document) : null
+    }).then(normalizeResponseErrors)
+      .then(res => res.json());
+  },
+
+  spellBookToggle: function (id, document) {
+    const url = buildUrl(`${WIZARDS_URL}${id}/spellbook`);
+
+    return fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: document ? JSON.stringify(document) : null
+    }).then(normalizeResponseErrors)
+      .then(res => res.text());
+  },
+
+  spellBookRemove: function (id, document) {
+    const url = buildUrl(`${WIZARDS_URL}${id}/spellbook`);
+
+    return fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: document ? JSON.stringify(document) : null
+    }).then(normalizeResponseErrors)
+      .then(res => res.text());
+  }
+
 };
 
 

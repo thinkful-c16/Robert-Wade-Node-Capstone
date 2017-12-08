@@ -14,7 +14,7 @@
 <body>
 	<h2>Wizardly 5e</h2>
 	<button type="submit" class="viewHome">Home</button>
-	<button type="submit" class="viewSpellSearch">Spells</button>
+	<!-- <button type="submit" class="viewSpellSearch">Spells</button> -->
 	<button type="submit" class="viewWizards">Wizards</button>
 <!-- 	<ul id="nav">
 		<li> </li><a href="" class="viewHome">Home</a>
@@ -25,17 +25,20 @@
 	<section id="home" class= "view">
 		<h2>Welcome to Wizardly 5e!</h2>
 		<br/>
-		<p>Search and review every spell in D&D 5e. Easily peruse complete information on every spell.
+		<p>A simple D&D 5th edition app to help manage your wizard's spell book.
 		<br/>
-		<p>Manage your spell slots. Add or delete spells from your spell book, and keep track of which spells are prepared.
+		<p>Click the wizards link above to get started.
 		<br/>
 		<p>[put at bottom with CSS later] <a href="http://dnd.wizards.com" target="_blank">[D&D Logo]</a>
 	</section>
 
 	<section id="compendiumOfSpells" class="view">
 		<div id="spellList">
-			<fieldset><legend>Compendium of Spells</legend>
+			<fieldset><legend>Click on a spell to view details and add to spell book</legend>
 				<div id="result"></div>
+				<ul id="nav">
+						<li> </li><a href="" class="this-spell-book">&lt; Back to spell book</a>
+				</ul>
 			</fieldset>
 		</div>
 	</section>
@@ -43,7 +46,7 @@
 	<section id="compendiumDetail" class="view">
 		<div id="spellDetails">
 			<fieldset>
-				<legend>Compendium Detail</legend>
+				<legend>Spell Detail</legend>
 					<label for="name">Name:</label>
 					<span class="name"></span>
 					<p><label for="type">Type:</label>
@@ -62,14 +65,15 @@
 					<span class="higher-levels"></span>
 				<br/>
 				<ul id="nav">
-					<li> </li><a href="" class="spellbook-add">Add to my spell book</a>
-					<li> </li><a href="" class="viewSpellSearch">&lt; Back to compendium</a>
+					<li> </li><a href="" class="add-to-spell-book">Add to spell book</a>
+					<li> </li><a href="" class="back-to-compendium">&lt; Back to spell search</a>
 				</ul>
 			</fieldset>
 		</div>
 	</section>
 
 	<section id="wizards" class="view">
+		<h4>Click on a wizard to manage spell book</h4>
 		<div id="allWizards">
 			<fieldset><legend>Roster of Wizards</legend>
 				<div id="allWizards"></div>
@@ -91,11 +95,9 @@
 				<span class="intelligence-modifier"></span>
 				<label for="max-prepared">Max prepared spells:</label>
 				<span class="max-prepared"></span>
-				<label for="spell-book">Spell book:</label>
-				<span class="spell-book"></span>
 				<button type="submit" class="view-edit-wizard">Edit</button>
 				<button type="submit" class="delete-wizard">Delete</button>
-				<button type="reset" class="viewWizards">Go Back</button>
+				<button type="reset" class="this-spell-book">Go Back</button>
 <!-- 				<ul id="nav">
 					<li> </li><a href="" class="view-edit-wizard">Edit this wizard</a>
 					<li> </li><a href="" class="delete-wizard">Delete this wizard</a>
@@ -148,8 +150,47 @@
 			<fieldset><legend></legend>
 				<div id="spell-book-result"></div>
 				<ul id="nav">
-					<li> </li><a href="" class="viewSpellBookCompendiumSearch">Search Spell Compendium</a>
+					<li> </li><a href="" class="spell-book-compendium-search">Add a spell</a>
 					<li> </li><a href="" class="spell-book-wizards-detail">&lt; View my Wizard</a>
+				</ul>
+			</fieldset>
+		</div>
+	</section>
+
+	<!-- <section id="spell-book-compendium-search" class="view">
+		<div id="spell-book-compendium-search-List">
+			<fieldset><legend>Choose a spell</legend>
+				<div id="result"></div>
+				<ul id="nav">
+					<li> </li><a href="" class="my-spell-book">&lt; Go back</a>
+				</ul>
+			</fieldset>
+		</div>
+	</section> -->
+
+	<section id="spell-book-detail" class="view">
+		<div id="spell-book-details">
+			<fieldset>
+				<legend>Spell Detail</legend>
+					<label for="name">Name:</label>
+					<span class="name"></span>
+					<p><label for="type">Type:</label>
+					<span class="type"></span>
+					<p><label for="casting-time">Casting time:</label>
+					<span class="casting-time"></span>
+					<label for="duration">Duration:</label>
+					<span class="duration"></span>
+					<p><label for="range">Range:</label>
+					<span class="range"></span>
+					<label for="components">Components:</label>
+					<span class="components"></span>
+					<p><label for="description">Description:</label>
+					<span class="description"></span>
+					<p><label for="higher-levels">At higher levels:</label>
+					<span class="higher-levels"></span>
+				<br/>
+				<ul id="nav">
+					<li> </li><a href="" class="my-spell-book">&lt; Go back</a>
 				</ul>
 			</fieldset>
 		</div>

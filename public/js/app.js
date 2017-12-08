@@ -32,23 +32,24 @@ const renderCompendiumResults = function (store) {
   $('#result').empty().append('<ul>').find('ul').append(listItems);
 };
 
+const renderCompendiumSearchResults = function (store) {
+  const listItems = store.compendiumSearchList.map((item) => {
+    return `<li id="${item._id}">
+                <a href="${item.url}" class="compendiumSearchDetail">${item.name}</a>
+              </li>`;
+  });
+  $('#result').empty().append('<ul>').find('ul').append(listItems);
+};
+
 const renderWizardsResults = function (store) {
   const listItems = store.wizardsList.map((item) => {
     // console.log(item.url);
     return `<li id="${item._id}">
-                <a href="${item.url}" class="wizardsDetail">${item.name}, level ${item.level} wizard</a>
-                <a href="${item.url}" class="this-spell-book">View spell book</a>
+                <a href="${item.url}" class="this-spell-book">${item.name}, level ${item.level} wizard</a>
               </li>`;
   });
   $('#allWizards').empty().append('<ul>').find('ul').append(listItems);
 };
-
-// const renderEdit = function (store) {
-//   const el = $('#edit');
-//   const item = store.item;
-//   el.find('[name=title]').val(item.title);
-//   el.find('[name=content]').val(item.content);
-// };
 
 const renderWizardEdit = function (store) {
   const el = $('#edit-wizard');
@@ -71,6 +72,19 @@ const renderDetail = function (store) {
   el.find('.type').text(item.type);
 };
 
+const renderSpellBookDetail = function (store) {
+  const el = $('#spell-book-detail');
+  const item = store.item;
+  el.find('.name').text(item.name);
+  el.find('.description').text(item.description);
+  el.find('.higher-levels').text(item.higher_levels);
+  el.find('.casting-time').text(item.casting_time);
+  el.find('.duration').text(item.duration);
+  el.find('.range').text(item.range);
+  el.find('.components').text(item.components.raw);
+  el.find('.type').text(item.type);
+};
+
 const renderWizardDetail = function (store) {
   const el = $('#wizardDetail');
   const item = store.item;
@@ -79,41 +93,33 @@ const renderWizardDetail = function (store) {
   el.find('.intelligence').text(item.intelligence);
   el.find('.intelligence-modifier').text(item.intelligenceModifier);
   el.find('.max-prepared').text(item.maxPrepared);
-  el.find('.spell-book').text(item.spellBook);
 };
 
 const renderSpellBookResults = function (store) {
+
+  // const spellNameFind = function (spell) {
+  //   return spell._id === item.spell_id;
+  // };
+
+  // const spellName = store.spellBookListDetails.find(spellNameFind);
+
   const listItems = store.spellBookList.map((item) => {
-    return `<li id="${item._id}">
-                <a href="${item.url}" class="spellBookDetail">${item.name}</a>
+    const spellNameFind = function (spell) {
+      return spell._id === item.spell_id;
+    };
+    const spellName = store.spellBookListDetails.find(spellNameFind);
+  
+    return `<li id="${item.spell_id}">
+                <a href="${item.url}" class="see-spell-book-details">${spellName.name}, ${spellName.type}</a>
+                <a href="${item.url}" class="spell-prepared-toggle">Prepare spell</a>
+                <a href="${item.url}" class="spell-book-remove">Remove spell</a>
+                <p>Prepared? : ${item.prepared}</p>
               </li>`;
   });
+  
   $('#spell-book-result').empty().append(`<h3>${store.activeWizard.name}'s Spell Book: </h3>`);
   $('#spell-book-result').append('<ul>').find('ul').append(listItems);
 };
-
-// const handleSearch = function (event) {
-//   event.preventDefault();
-//   const store = event.data;
-//   const el = $(event.target);
-//   const title = el.find('[name=title]').val();
-//   var query;
-//   if (title) {
-//     query = {
-//       title: el.find('[name=title]').val()
-//     };
-//   }
-//   api.search(query)
-//     .then(response => {
-//       store.list = response;
-//       renderResults(store);
-
-//       store.view = 'search';
-//       renderPage(store);
-//     }).catch(err => {
-//       console.error(err);
-//     });
-// };
 
 const handleCompendium = function (event) {
   event.preventDefault();
@@ -138,6 +144,50 @@ const handleCompendium = function (event) {
     });
 };
 
+const handleCompendiumDetails = function (event) {
+  event.preventDefault();
+  const store = event.data;
+  const el = $(event.target);
+
+  const id = el.closest('li').attr('id');
+  store.activeSpellId = id;
+
+  api.spellDetails(id)
+    .then(response => {
+      store.item = response;
+      renderDetail(store);
+
+      store.view = 'compendiumDetail';
+      renderPage(store);
+
+    }).catch(err => {
+      store.error = err;
+    });
+};
+
+// const handleSpellBookCompendiumSearch = function (event) {
+//   event.preventDefault();
+//   const store = event.data;
+//   const el = $(event.target);
+//   const spellName = el.find('[name=spellName]').val();
+//   var query;
+//   if (spellName) {
+//     query = {
+//       title: el.find('[name=spellName]').val()
+//     };
+//   }
+//   api.spellSearch(query)
+//     .then(response => {
+//       store.compendiumSearchList = response;
+//       renderCompendiumSearchResults(store);
+
+//       store.view = 'spell-book-compendium-search';
+//       renderPage(store);
+//     }).catch(err => {
+//       console.error(err);
+//     });
+// };
+
 const handleWizards = function (event) {
   event.preventDefault();
   const store = event.data;
@@ -161,26 +211,26 @@ const handleWizards = function (event) {
     });
 };
 
-const handleCreate = function (event) {
-  event.preventDefault();
-  const store = event.data;
-  const el = $(event.target);
+// const handleCreate = function (event) {
+//   event.preventDefault();
+//   const store = event.data;
+//   const el = $(event.target);
 
-  const document = {
-    title: el.find('[name=title]').val(),
-    content: el.find('[name=content]').val()
-  };
-  api.create(document)
-    .then(response => {
-      store.item = response;
-      store.list = null; //invalidate cached list results
-      renderDetail(store);
-      store.view = 'compendiumDetail';
-      renderPage(store);
-    }).catch(err => {
-      console.error(err);
-    });
-};
+//   const document = {
+//     title: el.find('[name=title]').val(),
+//     content: el.find('[name=content]').val()
+//   };
+//   api.create(document)
+//     .then(response => {
+//       store.item = response;
+//       store.list = null; //invalidate cached list results
+//       renderDetail(store);
+//       store.view = 'compendiumDetail';
+//       renderPage(store);
+//     }).catch(err => {
+//       console.error(err);
+//     });
+// };
 
 const handleCreateWizard = function (event) {
   event.preventDefault();
@@ -204,35 +254,13 @@ const handleCreateWizard = function (event) {
     });
 };
 
-// const handleUpdate = function (event) {
-//   event.preventDefault();
-//   const store = event.data;
-//   const el = $(event.target);
-
-//   const document = {
-//     id: store.item.id,
-//     title: el.find('[name=title]').val(),
-//     content: el.find('[name=content]').val()
-//   };
-//   api.update(document, store.token)
-//     .then(response => {
-//       store.item = response;
-//       store.list = null; //invalidate cached list results
-//       renderDetail(store);
-//       store.view = 'compendiumDetail';
-//       renderPage(store);
-//     }).catch(err => {
-//       console.error(err);
-//     });
-// };
-
 const handleWizardUpdate = function (event) {
   event.preventDefault();
   const store = event.data;
   const el = $(event.target);
 
   const document = {
-    id: store.item._id,
+    id: store.activeWizard._id,
     name: el.find('[name=name]').val(),
     level: el.find('[name=level]').val(),
     intelligence: el.find('[name=intelligence]').val()
@@ -249,26 +277,6 @@ const handleWizardUpdate = function (event) {
     });
 };
 
-const handleCompendiumDetails = function (event) {
-  event.preventDefault();
-  const store = event.data;
-  const el = $(event.target);
-
-  const id = el.closest('li').attr('id');
-
-  api.spellDetails(id)
-    .then(response => {
-      store.item = response;
-      renderDetail(store);
-
-      store.view = 'compendiumDetail';
-      renderPage(store);
-
-    }).catch(err => {
-      store.error = err;
-    });
-};
-
 const handleWizardDetails = function (event) {
   event.preventDefault();
   const store = event.data;
@@ -282,6 +290,118 @@ const handleWizardDetails = function (event) {
       renderWizardDetail(store);
 
       store.view = 'wizardDetail';
+      renderPage(store);
+
+    }).catch(err => {
+      store.error = err;
+    });
+};
+
+const handleWizardRemove = function (event) {
+  event.preventDefault();
+  const store = event.data;
+  const id = store.item._id;
+  // console.log(store);
+  api.wizardRemove(id, store.token)
+    .then(() => {
+      store.wizardsList = null; //invalidate cached list results
+      return handleWizards(event);
+    }).catch(err => {
+      console.error(err);
+    });
+};
+
+const handleSpellBookDetails = function (event) {
+  event.preventDefault();
+  const store = event.data;
+  const el = $(event.target);
+
+  const id = el.closest('li').attr('id');
+  // console.log(id);
+
+  api.spellDetails(id)
+    .then(response => {
+      store.item = response;
+      renderSpellBookDetail(store);
+
+      store.view = 'spell-book-detail';
+      renderPage(store);
+
+    }).catch(err => {
+      store.error = err;
+    });
+};
+
+const handleAddSpell = function (event) {
+  event.preventDefault();
+  const store = event.data;
+  const el = $(event.target);
+
+  const id = store.activeWizard._id;
+
+  const document = {
+    _id: store.activeSpellId
+  };
+  api.spellBookAdd(id, document, store.token)
+    .then(() => {
+      store.activeSpellId = null; //invalidate cached active spell id
+      renderSpellBookResults(store);
+
+      store.view = 'spell-book-section';
+      renderPage(store);
+    }).catch(err => {
+      store.error = err;
+    });
+};
+
+const handleSpellPreparedToggle = function (event) {
+  event.preventDefault();
+  const store = event.data;
+  const el = $(event.target);
+
+  const spellId = el.closest('li').attr('id');
+  const id = store.activeWizard._id;
+
+  const document = {
+    spell_id: spellId
+  };
+
+  console.log('I am here');
+  console.log('document', document);
+  console.log('id', id);
+
+  api.spellBookToggle(id, document)
+    .then(() => {
+      // store.item = response;
+      renderSpellBookResults(store);
+
+      store.view = 'spell-book-section';
+      renderPage(store);
+
+    }).catch(err => {
+      store.error = err;
+    });
+};
+
+
+const handleSpellBookRemove = function (event) {
+  event.preventDefault();
+  const store = event.data;
+  const el = $(event.target);
+
+  const spellId = el.closest('li').attr('id');
+  const id = store.activeWizard._id;
+
+  const document = {
+    spell_id: spellId
+  };
+
+  api.spellBookRemove(id, document)
+    .then(() => {
+      // store.item = response;
+      renderSpellBookResults(store);
+
+      store.view = 'spell-book-section';
       renderPage(store);
 
     }).catch(err => {
@@ -313,15 +433,24 @@ const handleSpellBook = function (event) {
   const store = event.data;
   const el = $(event.target);
 
-  const id = el.closest('li').attr('id');
+  // console.log(store.activeWizard._id);
+
+  const id = store.activeWizard._id || el.closest('li').attr('id');
   // store.activeWizardId = el.closest('li').attr('id');
   // console.log(store.activeWizardId);
+  const detailsPromises = [];
 
   api.wizardDetails(id)
     .then(wizard => {
       store.activeWizard = wizard;
-      // console.log(store.activeWizard);
-    }).then(() => {
+      console.log('active wiz spellBook', store.activeWizard.spellBook);
+      store.activeWizard.spellBook.map( spell => {
+        detailsPromises.push(api.spellDetails(spell.spell_id));
+      });
+      return Promise.all(detailsPromises);
+    }).then(promises => {
+      store.spellBookListDetails = promises;
+      console.log('should have the details', store.spellBookListDetails);
       api.spellBook(id)
         .then(response => {
           store.spellBookList = response;
@@ -345,6 +474,10 @@ const handleSpellBook = function (event) {
   //   }).catch(err => {
   //     store.error = err;
   //   });
+
+  // store.spellBookList.map(spell => {
+  //   return store.spellBookListDetails.push(api.spellDetails(spell.spell_id));
+  // });
 };
 
 // const handleRemove = function (event) {
@@ -361,23 +494,10 @@ const handleSpellBook = function (event) {
 //     });
 // };
 
-const handleWizardRemove = function (event) {
-  event.preventDefault();
-  const store = event.data;
-  const id = store.item._id;
-
-  api.wizardRemove(id, store.token)
-    .then(() => {
-      store.wizardsList = null; //invalidate cached list results
-      return handleWizards(event);
-    }).catch(err => {
-      console.error(err);
-    });
-};
-
 const handleViewWizards = function (event) {
   event.preventDefault();
   const store = event.data;
+  store.activeWizard = {};
   if (!store.wizardsList) {
     handleWizards(event);
     return;
@@ -449,9 +569,12 @@ jQuery(function ($) {
     query: {},          // search query values
     wizardsList: null,
     compendiumList: null,         // search result - array of objects (documents)
+    compendiumSearchList: null,
     spellBookList: null,
-    item: null,         // currently selected document
-    activeWizard: {}
+    spellBookListDetails: [],
+    item: null,   // currently selected document
+    activeSpellId: null,        // currently selected spell
+    activeWizard: {}     // currently selected wizard
   };
 
   // $('#create').on('submit', STORE, handleCreate);
@@ -462,7 +585,10 @@ jQuery(function ($) {
 
   // compendium related listeners 
   $('#result').on('click', '.compendiumDetail', STORE, handleCompendiumDetails);
-  $('#compendiumOfSpells').on('submit', STORE, handleCompendium);
+  $('#compendiumOfSpells').on('click', '.this-spell-book', STORE, handleSpellBook);
+  $('#compendiumDetail').on('click', '.back-to-compendium', STORE, handleViewCompendium);
+  $('#compendiumDetail').on('click', '.add-to-spell-book', STORE, handleAddSpell);
+  // $('#compendiumOfSpells').on('submit', STORE, handleCompendium);
 
   // wizards related listeners
   $('#createWizard').on('submit', STORE, handleCreateWizard);
@@ -471,14 +597,21 @@ jQuery(function ($) {
   $('#wizardDetail').on('click', '.view-edit-wizard', STORE, handleViewEditWizard);
   $('#edit-wizard').on('submit', STORE, handleWizardUpdate);
   $('#wizardDetail').on('click', '.delete-wizard', STORE, handleWizardRemove);
+  $('#wizardDetail').on('click', '.this-spell-book', STORE, handleSpellBook);
 
   // spell book related listeners
   $('#allWizards').on('click', '.this-spell-book', STORE, handleSpellBook);
   $('#spell-book-section').on('click', '.spell-book-wizards-detail', STORE, handleSpellBookWizardDetails);
+  $('#spell-book-section').on('click', '.spell-book-compendium-search', STORE, handleCompendium);
+  $('#spell-book-section').on('click', '.see-spell-book-details', STORE, handleSpellBookDetails);
+  $('#spell-book-section').on('click', '.spell-prepared-toggle', STORE, handleSpellPreparedToggle);
+  $('#spell-book-section').on('click', '.spell-book-remove', STORE, handleSpellBookRemove);
+  $('#spell-book-detail').on('click', '.my-spell-book', STORE, handleSpellBook);
+
 
   // nav bar listeners
   $(document).on('click', '.viewWizards', STORE, handleViewWizards);
-  $(document).on('click', '.viewSpellSearch', STORE, handleViewCompendium);
+  // $(document).on('click', '.viewSpellSearch', STORE, handleViewCompendium);
   $(document).on('click', '.viewHome', STORE, handleViewHome);
 
   // start app by viewing the home page
