@@ -126,7 +126,7 @@ var api = {
         'Accept': 'application/json'
       }
     }).then(normalizeResponseErrors)
-      .then(res => res.text());
+      .then(res => res.json());
   },
 
   spellBook: function (id) {
@@ -166,7 +166,7 @@ var api = {
       },
       body: document ? JSON.stringify(document) : null
     }).then(normalizeResponseErrors)
-      .then(res => res.text());
+      .then(res => res.json());
   },
 
   spellBookRemove: function (id, document) {
@@ -180,7 +180,7 @@ var api = {
       },
       body: document ? JSON.stringify(document) : null
     }).then(normalizeResponseErrors)
-      .then(res => res.text());
+      .then(res => res.json());
   }
 
 };

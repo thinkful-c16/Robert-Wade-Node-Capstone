@@ -200,14 +200,12 @@ app.delete('/api/v1/wizards/:id/spellbook', (req, res) => {
 app.put('/api/v1/wizards/:id/spellbook', (req, res) => {
   Wizard
     .findOne({'spellBook.spell_id': req.body.spell_id})
+    .select('spellBook.$.prepared')
     .then(wizard => {
-      console.log(wizard);
-      return wizard.spellBook.filter(spells => spells.spell_id == req.body.spell_id);
-    }).then(spellArray => {
-      console.log(spellArray);
+      console.log('spell', wizard);
       return Wizard
         .findOneAndUpdate({_id: req.params.id, 'spellBook.spell_id': req.body.spell_id},
-          { $set: {'spellBook.$.prepared': !spellArray[0].prepared} },
+          { $set: {'spellBook.$.prepared': !wizard.spellBook[0].prepared} },
           {new: true}
         );
     }).then(results => {

@@ -98,7 +98,8 @@ const renderWizardDetail = function (store) {
 const renderSpellBookResults = function (store) {
 
   console.log('state of spellbooklist', store.spellBookList);
-  
+  console.log('store', store);
+
   const listItems = store.spellBookList.map((item) => {
     const spellNameFind = function (spell) {
       return spell._id === item.spell_id;
@@ -368,8 +369,8 @@ const handleSpellPreparedToggle = function (event) {
 
   api.spellBookToggle(id, document)
     .then((response) => {
-
-      store.spellBookList = response;
+      console.log('response', response);
+      store.spellBookList = response.spellBook;
      
       renderSpellBookResults(store);
 
@@ -395,8 +396,8 @@ const handleSpellBookRemove = function (event) {
   };
 
   api.spellBookRemove(id, document)
-    .then(() => {
-      // store.item = response;
+    .then((response) => {
+      store.spellBookList = response.spellBook;
       renderSpellBookResults(store);
 
       store.view = 'spell-book-section';
