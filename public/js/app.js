@@ -10,7 +10,8 @@ const renderPage = function (store) {
     $('#' + store.view).css('background-color', 'white');
   } else {
     $('.view').hide();
-    $('#' + store.view).show();
+    $(`#${store.view}`).show();
+    console.log(store.view);
   }
 };
 
@@ -113,8 +114,8 @@ const renderSpellBookResults = function (store) {
                 <p>Prepared? : ${item.prepared}</p>
               </li>`;
   });
-
-  $('#spell-book-result').empty().append(`<h3>${store.activeWizard.name}'s Spell Book: </h3>`);
+  
+  $('#spell-book-result').html(`<h3>${store.activeWizard.name}'s Spell Book: </h3>`);
   $('#spell-book-result').append('<ul>').find('ul').append(listItems);
 };
 
@@ -334,14 +335,43 @@ const handleAddSpell = function (event) {
   const store = event.data;
   const el = $(event.target);
 
-  const id = store.activeWizard._id;
-
   const document = {
     _id: store.activeSpellId
   };
+
+  const id = store.activeWizard._id;
+
+  store.activeWizard.spellBook.find( function (val) {
+    console.log('val', val);
+    if (!val.spell_id === store.activeSpellId) {
+      api.spellBookAdd(id, document, store.token)
+        .then(results => {
+          store.activeSpellId = null; //invalidate cached active spell id
+  
+          console.log('result', results);
+          store.activeWizard._id = results._id;
+          store.spellBookList = results.spellBook;
+          console.log('bang', store.spellBookList);
+          renderSpellBookResults(store);
+          
+          store.view = 'spell-book-section';
+          console.log('view', store.view);
+          renderPage(store);
+        }).catch(err => {
+          store.error = err;
+        });
+    }
+  });
+
+
   api.spellBookAdd(id, document, store.token)
-    .then(() => {
+    .then(results => {
       store.activeSpellId = null; //invalidate cached active spell id
+
+      console.log('result', results);
+      store.activeWizard._id = results._id;
+      store.spellBookList = results.spellBook;
+      console.log(store.spellBookList);
       renderSpellBookResults(store);
 
       store.view = 'spell-book-section';
