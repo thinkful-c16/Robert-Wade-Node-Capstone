@@ -201,17 +201,18 @@ app.put('/api/v1/wizards/:id/spellbook', (req, res) => {
   Wizard
     .findOne({'spellBook.spell_id': req.body.spell_id})
     .then(wizard => {
-      // console.log(wizard);
+      console.log(wizard);
       return wizard.spellBook.filter(spells => spells.spell_id == req.body.spell_id);
     }).then(spellArray => {
       console.log(spellArray);
       return Wizard
-        .update({_id: req.params.id, 'spellBook.spell_id': req.body.spell_id},
+        .findOneAndUpdate({_id: req.params.id, 'spellBook.spell_id': req.body.spell_id},
           { $set: {'spellBook.$.prepared': !spellArray[0].prepared} },
           {new: true}
         );
     }).then(results => {
-      res.status(201).json(results);
+      console.log('results', results);
+      res.json(results);
     })
     .catch(err => {
       console.error(err);
