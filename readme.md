@@ -23,7 +23,7 @@ Photoshop/ Flame Painter Pro 3
 
 Deployed via Heroku at https://wizardly-5e.herokuapp.com/
 
-Ideation notes:
+***Ideation notes:***
 
 *****************
 ** Splash Page **
