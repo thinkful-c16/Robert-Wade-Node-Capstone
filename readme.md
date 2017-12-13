@@ -1,13 +1,29 @@
 ***WIZARDLY 5E***
 
-A Wizard Spell Book Organizer App
+A 5e DnD Wizard Spell Book Organizer App
 
 By Robert Frazier and Wade Collier
 
 ***APP PURPOSE OVERVIEW***
 
-An app for managing spells as a Wizard in DnD 5e.
+Wizardly 5e is an app for managing spells as a Wizard in DnD 5e.
 The user can view their spell book, dynamically update spell book, and set prepared status for spells in spell book.
+
+***TECH STACK***
+
+Node.js/ Express
+
+MongoDB/ Mongoose
+
+Mocha/ Chai/ Travis CI
+
+Heroku/ mLab
+
+Photoshop/ Flame Painter Pro 3
+
+Deployed via Heroku at https://wizardly-5e.herokuapp.com/
+
+Ideation notes:
 
 *****************
 ** Splash Page **
