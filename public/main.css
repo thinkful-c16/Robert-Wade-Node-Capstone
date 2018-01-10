@@ -143,7 +143,7 @@ label {
 }
 
 #spell-book-detail{
-  height: 540px;
+  height: 90%;
   width: 90%;
   margin: 0 auto;
   border: 3px solid grey;
@@ -155,7 +155,12 @@ label {
 #spellDetails{
   margin: 0 auto;
   width: 85%;
-  max-height: 535px;
+  overflow: auto;
+}
+
+#spell-book-details{
+  margin: 0 auto;
+  width: 85%;
   overflow: auto;
 }
 
@@ -190,7 +195,7 @@ label {
 #wizardDetails{
   position: absolute;
   width: 85%;
-  height: 535px;
+  height: 90%px;
 }
 
 #createWizard{
@@ -235,3 +240,4 @@ label {
 #edit {
   /* display: none; */
 }
+
